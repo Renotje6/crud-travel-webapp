@@ -132,12 +132,8 @@ nav .toggle {
     transform-origin: 4px 0px;
   }
 
-  nav .toggle span:first-child {
-    transform-origin: 0% 0%;
-  }
-
-  nav .toggle span:nth-last-child(2) {
-    transform-origin: 0% 100%;
+  .navigation-links .close-btn {
+    cursor: pointer;
   }
 }
 
