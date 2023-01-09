@@ -1,3 +1,11 @@
+<?php
+$styles = [
+    "index.php" => [
+        "homepage.css"
+    ]
+]
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +16,9 @@
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/variables.css" />
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/index.css" />
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/navigation.css" />
+
+    <?php
+    ?>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/homepage.css" />
 
     <title>Document</title>
