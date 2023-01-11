@@ -1,61 +1,3 @@
-/* Search bar */
-.search {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.search img {
-  width: 100%;
-  height: 25vh;
-  object-fit: cover;
-  object-position: 0% 70%;
-  z-index: -2;
-}
-
-.search .search-bar {
-  height: 8vh;
-  width: auto;
-  padding: 3vh 10vw;
-
-  position: relative;
-  top: -4vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-
-  background-color: var(--color-primary);
-  border-radius: 8px;
-}
-
-.search-bar form {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4vw;
-}
-
-.search-bar form input {
-  width: 10vw;
-  height: 4vh;
-  text-align: center;
-  background-color: var(--color-secondary);
-  border-radius: 5px;
-  border: 1px solid var(--color-secondary-dark);
-  font-size: 1.5rem;
-}
-
-.search-bar form input[type="submit"] {
-  color: var(--color-secondary);
-  background-color: var(--color-tertiary);
-  border: none;
-  cursor: pointer;
-}
-
 /* Top 3 */
 .top-3 {
   margin-top: 5vh;
@@ -71,7 +13,6 @@
 }
 
 .top-3-items {
-  z-index: -1;
   display: flex;
   width: 100%;
   margin-top: 5vh;
@@ -108,7 +49,6 @@
 
 /* Warranties */
 .warranties {
-  z-index: -1;
   position: relative;
   max-width: 100%;
   height: 40vh;
@@ -143,7 +83,7 @@
 }
 
 .warranty i {
-  font-size: 15vh;
+  font-size: 10vh;
 }
 
 .warranty i#verified-user {
@@ -159,7 +99,7 @@
 }
 
 .warranty p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 300;
 }
 
@@ -179,7 +119,6 @@
 }
 
 .top-6-items {
-  z-index: -1;
   display: flex;
   margin-top: 5vh;
   flex-direction: row;
@@ -190,12 +129,9 @@
 }
 
 .top-6-item {
-  float: left;
   display: flex;
-  /* width: 40%; */
   width: 700px;
   height: auto;
-  /* border: 1px solid red; */
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
 }
 

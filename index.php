@@ -1,16 +1,18 @@
 <?php
 require_once(__DIR__ . "/includes/config.php");
 include(ROOT_PATH . "/includes/header.php");
+include(ROOT_PATH . "/includes/connection.php")
 ?>
 <main>
   <section class="search">
     <img class="banner-img" src="<?php echo BASE_URL; ?>resources/images/hand-drawn-travel-background_52683-85109.webp" alt="hand-drawn-travel-background_52683-85109" />
     <div class="search-bar">
-      <form action="#" method="GET">
-        <input type="text" placeholder="Bestemming" id="destination" />
-        <input type="date" placeholder="Vertrekdatum" id="date" />
-        <input type="text" placeholder="Luchthaven" id="airport" />
-        <input type="submit" value="Zoeken" id="search" />
+      <form action="<?php echo BASE_URL ?>pages/searchPage.php" method="GET">
+
+        <input type="text" placeholder="Bestemming" id="destination" name="destination" />
+        <input type="text" placeholder="Luchthaven" id="airport" name="airport" />
+        <input type="submit" value="Zoeken" id="search" name="submit" />
+
       </form>
     </div>
   </section>
