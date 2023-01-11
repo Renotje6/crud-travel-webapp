@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/config.php");
-require(ROOT_PATH . "/includes/functions/search.php");
+require(ROOT_PATH . "/includes/functions/searchbar.php");
 include(ROOT_PATH . "/includes/header.php");
 ?>
 <main>
@@ -43,13 +43,6 @@ include(ROOT_PATH . "/includes/header.php");
                         </div>
                     </div>
                     <div class="card-description">
-                        <!-- <div class="airport">
-                            <p>
-                                <i class="material-symbols-outlined">flight_takeoff</i>
-                                <?php echo $result['airport']
-                                ?>
-                            </p>
-                        </div> -->
                         <div class="price">
                             <h2>Vanaf Prijs</h2>
                             <p>€<?php echo $result['price'] ?></p>
