@@ -32,16 +32,26 @@ function _searchAccommodations($parameters)
         if (!empty($searchConstraints)) {
             $searchConstraints .= " AND";
         }
-        $searchConstraints .= " airport = :airport";
+        $searchConstraints .= " airport LIKE :airport";
     }
 
-    $query = "SELECT * FROM accommodations";
+    $query = "SELECT ACCOMMODATIONS.ID, ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, 
+                     ACCOMMODATIONS.price, ROUND(AVG(REVIEWS.rating)) AS rating, IMAGES.URL as image
+                    FROM accommodations 
+                    INNER JOIN REVIEWS
+                    ON ACCOMMODATIONS.ID = REVIEWS.accommodationID
+                    INNER JOIN IMAGES
+                    ON ACCOMMODATIONS.ID = IMAGES.accommodationID";
 
     if (!empty($searchConstraints)) {
         $query .= " WHERE" . $searchConstraints;
+        $query .= " GROUP BY ACCOMMODATIONS.name, IMAGES.URL";
     } else {
+        $query .= " GROUP BY ACCOMMODATIONS.name, IMAGES.URL";
         $query .= " LIMIT 10";
     }
+
+
 
     $queryExec = $conn->prepare($query);
 
@@ -52,28 +62,27 @@ function _searchAccommodations($parameters)
         $queryExec->bindParam(":destination3", $destination);
         $queryExec->bindParam(":destination4", $destination);
     }
-    if (!empty($parameters['date'])) {
-        $queryExec->bindParam(":date", $parameters['date']);
-    }
     if (!empty($parameters['airport'])) {
-        $queryExec->bindParam(":airport", $parameters['airport']);
+        $airport = '%' . $parameters['airport'] . '%';
+        $queryExec->bindParam(":airport", $airport);
     }
 
     $queryExec->execute();
     $results = $queryExec->fetchAll();
+    var_dump($results);
     return $results;
 }
 
 function _findImage($id)
 {
     global $conn;
-    $query = "SELECT url FROM IMAGES WHERE accommodationID = :id AND isThumbnail = true";
+    $query = "SELECT URL FROM IMAGES WHERE accommodationID = :id AND isThumbnail = true";
     $queryExec = $conn->prepare($query);
     $queryExec->bindParam(":id", $id, PDO::PARAM_INT);
     $queryExec->execute();
 
     $result = $queryExec->fetch(PDO::FETCH_ASSOC);
-    return $result['url'];
+    return $result['URL'];
 }
 
 function _getRating($id)

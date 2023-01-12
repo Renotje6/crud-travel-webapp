@@ -45,7 +45,7 @@ include(ROOT_PATH . "/includes/header.php");
                     <div class="card-description">
                         <div class="price">
                             <h2>Vanaf Prijs</h2>
-                            <p>€<?php echo $result['price'] ?></p>
+                            <p>&euro;<?php echo $result['price'] ?></p>
                         </div>
                         <button>Bekijk</button>
                     </div>

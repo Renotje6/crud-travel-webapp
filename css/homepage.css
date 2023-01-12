@@ -1,6 +1,5 @@
 /* Top 3 */
 .top-3 {
-  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -128,11 +127,22 @@
   gap: 1vw;
 }
 
-.top-6-item {
-  display: flex;
+.top-6-items a {
   width: 700px;
   height: auto;
+  text-decoration: none;
+  color: inherit;
+}
+
+.top-6-item {
+  display: flex;
+  width: inherit;
+  height: inherit;
   box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.top-6-item:hover {
+  box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .top-6-items .top-6-item img {
