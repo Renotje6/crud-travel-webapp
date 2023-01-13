@@ -8,7 +8,7 @@ include(ROOT_PATH . "/includes/connection.php")
   <section class="search">
     <img class="banner-img" src="<?php echo BASE_URL; ?>resources/images/hand-drawn-travel-background_52683-85109.webp" alt="hand-drawn-travel-background_52683-85109" />
     <div class="search-bar">
-      <form action="<?php echo BASE_URL ?>pages/searchPage.php" method="GET">
+      <form action="<?php echo BASE_URL ?>pages/search.php" method="GET">
 
         <input type="text" placeholder="Bestemming" id="destination" name="destination" />
         <input type="text" placeholder="Luchthaven" id="airport" name="airport" />
@@ -23,7 +23,7 @@ include(ROOT_PATH . "/includes/connection.php")
 
       <?php $results = getTop3Locations();
       foreach ($results as $result) : ?>
-        <a href="<?php echo BASE_URL ?>pages/searchPage.php?destination=<?php echo $result['country'] ?>">
+        <a href="<?php echo BASE_URL ?>pages/search.php?destination=<?php echo $result['country'] ?>">
           <div class="top-3-item">
             <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
             <h2 class="top-3-item-title"><?php echo $result['country']; ?></h2>
@@ -59,7 +59,7 @@ include(ROOT_PATH . "/includes/connection.php")
       $results = getTop6();
       foreach ($results as $result) :
       ?>
-        <a href="<?php echo BASE_URL ?>pages/searchPage.php?destination=<?php echo $result['name'] ?>">
+        <a href="<?php echo BASE_URL ?>pages/search.php?destination=<?php echo $result['name'] ?>">
           <div class="top-6-item">
             <img src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="thumbnail" />
             <div class="top-6-item-info">

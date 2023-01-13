@@ -6,7 +6,7 @@ $styles = [
         "homepage.css",
         "searchsection.css",
     ],
-    "searchPage.php" => [
+    "search.php" => [
         "searchpage.css",
         "searchsection.css",
     ],
@@ -51,7 +51,7 @@ $styles = [
         <ul class="navigation-links">
             <div class="close-btn">&#10006;</div>
             <li class="nav-item"><a href="<?php echo BASE_URL ?>index.php">Home</a></li>
-            <li class="nav-item"><a href="<?php echo BASE_URL ?>pages/searchPage.php">Zoek & Boek</a></li>
+            <li class="nav-item"><a href="<?php echo BASE_URL ?>pages/search.php">Zoek & Boek</a></li>
             <li class="nav-item"><a href="#">Contact</a></li>
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
