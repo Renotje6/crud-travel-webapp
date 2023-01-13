@@ -1,5 +1,4 @@
 <?php
-
 function getTop6()
 {
     global $conn;
@@ -13,6 +12,22 @@ function getTop6()
                 WHERE IMAGES.isThumbnail = 1
                 GROUP BY ACCOMMODATIONS.name, IMAGES.URL
                 ORDER BY rating DESC LIMIT 6;";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->execute();
+    $results = $queryExec->fetchAll();
+
+    return $results;
+}
+
+function getTop3Locations()
+{
+    global $conn;
+    $query = "SELECT ACCOMMODATIONS.country, COUNT(country) as count FROM ACCOMMODATIONS
+                INNER JOIN BOOKINGS
+                ON BOOKINGS.accommodationID = ACCOMMODATIONS.ID
+                GROUP BY ACCOMMODATIONS.country
+                ORDER BY count DESC LIMIT 3;";
 
     $queryExec = $conn->prepare($query);
     $queryExec->execute();

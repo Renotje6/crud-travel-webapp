@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . "/includes/config.php");
-require(ROOT_PATH . "/includes/functions/top6.php");
+require(ROOT_PATH . "/includes/functions/homepage.php");
 include(ROOT_PATH . "/includes/header.php");
 include(ROOT_PATH . "/includes/connection.php")
 ?>
@@ -18,20 +18,18 @@ include(ROOT_PATH . "/includes/connection.php")
     </div>
   </section>
   <section class="top-3">
-    <h1 class="top-3-title">Top 3 bestemmingen</h1>
+    <h1 class="top-3-title">Top 3 landen</h1>
     <div class="top-3-items">
-      <div class="top-3-item">
-        <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
-        <h2 class="top-3-item-title">Frankrijk</h2>
-      </div>
-      <div class="top-3-item">
-        <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
-        <h2 class="top-3-item-title">Frankrijk</h2>
-      </div>
-      <div class="top-3-item">
-        <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
-        <h2 class="top-3-item-title">Frankrijk</h2>
-      </div>
+
+      <?php $results = getTop3Locations();
+      foreach ($results as $result) : ?>
+        <a href="<?php echo BASE_URL ?>pages/searchPage.php?destination=<?php echo $result['country'] ?>">
+          <div class="top-3-item">
+            <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
+            <h2 class="top-3-item-title"><?php echo $result['country']; ?></h2>
+          </div>
+        </a>
+      <?php endforeach; ?>
     </div>
   </section>
   <section class="warranties">

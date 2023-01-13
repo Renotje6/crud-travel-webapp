@@ -7,8 +7,8 @@
 }
 
 .top-3 .top-3-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .top-3-items {
@@ -113,8 +113,8 @@
 
 .top-6-title {
   text-align: center;
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .top-6-items {
@@ -142,7 +142,7 @@
 }
 
 .top-6-item:hover {
-  box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 .top-6-items .top-6-item img {
