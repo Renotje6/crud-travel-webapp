@@ -22,7 +22,7 @@ include(ROOT_PATH . "/includes/header.php");
         ?>
 
             <div class="result-card">
-                <img src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="Thumbnail" />
+                <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="Thumbnail" />
                 <div class="result-card-info">
                     <div class="card-title">
                         <div>

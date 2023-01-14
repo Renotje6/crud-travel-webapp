@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "Renotje41!";
+$username = "crud_app";
+$password = "crud_application";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=crud_travel_webapp", $username, $password);

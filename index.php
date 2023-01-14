@@ -61,7 +61,7 @@ include(ROOT_PATH . "/includes/connection.php")
       ?>
         <a href="<?php echo BASE_URL ?>pages/search.php?destination=<?php echo $result['name'] ?>">
           <div class="top-6-item">
-            <img src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="thumbnail" />
+            <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="thumbnail" />
             <div class="top-6-item-info">
               <div class="card-title">
                 <h3><?php echo $result['name'] ?></h3>
