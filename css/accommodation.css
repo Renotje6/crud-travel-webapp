@@ -1,0 +1,17 @@
+.accommodation-info {
+  margin-top: 5vh;
+  background-color: var(--color-secondary-dark);
+  padding: 20px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+img {
+  max-width: 500px;
+  height: auto;
+}
+
+.accommodation-info .accommodation-details {
+  flex: 1;
+}

@@ -10,6 +10,9 @@ $styles = [
         "searchpage.css",
         "searchsection.css",
     ],
+    "accommodation.php" => [
+        "accommodation.css",
+    ],
 ]
 ?>
 
