@@ -3,6 +3,10 @@ DROP DATABASE IF EXISTS crud_travel_webapp;
 CREATE DATABASE IF NOT EXISTS crud_travel_webapp;
 USE crud_travel_webapp;
 
+DROP USER 'crud_app'@'localhost';
+CREATE USER 'crud_app'@'localhost' IDENTIFIED BY 'crud_application';
+GRANT INSERT, SELECT, UPDATE, DELETE ON crud_travel_webapp.* TO 'crud_app'@'localhost';
+
 CREATE TABLE IF NOT EXISTS USERS (
 	ID INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
