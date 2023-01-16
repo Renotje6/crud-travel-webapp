@@ -28,5 +28,9 @@ include(ROOT_PATH . "/includes/header.php");
         Fuga illo odit dolores. Excepturi fuga accusantium fugiat veritatis esse quaerat impedit, illum nesciunt aliquam, quidem nihil earum odit laudantium repellat praesentium. Sequi fugiat quam ex laborum rerum porro totam!
         Quasi reiciendis cumque assumenda nemo, nobis accusantium, est veritatis doloribus minus quis fugiat, recusandae quisquam nesciunt dolore aspernatur ab facilis ipsa suscipit? Vel, possimus laboriosam ut illo vero mollitia unde!
     </div>
-    <div class="accommodation-reviews"></div>
+    <div class="accommodation-reviews">
+        <div class="review">
+
+        </div>
+    </div>
 </main>
