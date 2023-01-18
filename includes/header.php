@@ -16,11 +16,18 @@ $styles = [
     "login.php" => [
         "login.css",
     ],
+    "registration.php" => [
+        "login.css",
+    ],
 ];
 
 $scripts = [
     "accommodation.php" => [
         "slideshow.js",
+    ],
+
+    "registration.php" => [
+        "registrationFormValidation.js",
     ],
 ]
 ?>

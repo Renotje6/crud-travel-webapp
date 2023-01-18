@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS USERS (
 	ID INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(35) NOT NULL,
-    password VARCHAR(35) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     isAdmin BOOLEAN default false,
     PRIMARY KEY(ID),
     UNIQUE(username),

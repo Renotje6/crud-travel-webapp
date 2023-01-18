@@ -20,7 +20,7 @@ include(ROOT_PATH . "/includes/header.php");
                 <label for="password">Wachtwoord:</label>
             </div>
             <button type="submit" onClick="return false;">Log in</button>
-            <p class="create-account">Nog geen account? <br /><a href="#">Creëer een account</a></p>
+            <p class="create-account">Nog geen account? <br /><a href="<?php echo BASE_URL ?>pages/registration.php">Creëer een account</a></p>
         </form>
     </div>
 </main>

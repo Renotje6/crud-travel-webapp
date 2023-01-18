@@ -7,7 +7,7 @@ include(ROOT_PATH . "/includes/header.php");
     <section class="search">
         <img class="banner-img" src="<?php echo BASE_URL; ?>resources/images/travel-destination-liechtenstein-tourism-mockup-with-travel-equipment-world-map_292608-4201.jpg" alt="hand-drawn-travel-background_52683-85109" />
         <div class="search-bar">
-            <form action="#" method="GET">
+            <form action="<?php echo BASE_URL ?>pages/search.php" method="GET">
                 <input type="text" placeholder="Bestemming" id="destination" name="destination" />
                 <input type="text" placeholder="Luchthaven" id="airport" name="airport" />
                 <input type="submit" value="Zoeken" id="search" name="submit" />
