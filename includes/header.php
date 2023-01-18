@@ -13,6 +13,15 @@ $styles = [
     "accommodation.php" => [
         "accommodation.css",
     ],
+    "login.php" => [
+        "login.css",
+    ],
+];
+
+$scripts = [
+    "accommodation.php" => [
+        "slideshow.js",
+    ],
 ]
 ?>
 
@@ -33,6 +42,13 @@ $styles = [
             echo "<link rel='stylesheet' href='" . BASE_URL . "css/" . $style . "' />";
         }
     }
+
+    if (isset($scripts[basename($_SERVER['PHP_SELF'])])) {
+
+        foreach ($scripts[basename($_SERVER['PHP_SELF'])] as $script) {
+            echo "<script src='" . BASE_URL . "js/" . $script . "' defer></script>";
+        }
+    }
     ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +57,6 @@ $styles = [
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <script src="<?php echo BASE_URL; ?>js/toggle_nav_menu.js" defer></script>
-    <script src="<?php echo BASE_URL; ?>js/slideshow.js" defer></script>
 
     <title>Document</title>
 </head>
@@ -59,5 +74,5 @@ $styles = [
             <li class="nav-item"><a href="#">Contact</a></li>
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
-        <p class="button"><a href="#">Login</a></p>
+        <p class="button"><a href="<?php echo BASE_URL ?>pages/login.php">Login</a></p>
     </nav>
