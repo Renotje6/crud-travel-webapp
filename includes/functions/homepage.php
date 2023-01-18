@@ -1,4 +1,5 @@
 <?php
+include_once ROOT_PATH . 'includes/connection.php';
 function getTop6()
 {
     global $conn;

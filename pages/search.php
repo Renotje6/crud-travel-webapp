@@ -47,7 +47,9 @@ include(ROOT_PATH . "/includes/header.php");
                             <h2>Vanaf Prijs</h2>
                             <p>&euro;<?php echo $result['price'] ?></p>
                         </div>
-                        <button>Bekijk</button>
+                        <a href="<?php echo BASE_URL; ?>pages/accommodation.php?accommodation=<?php echo $result['ID']; ?>">
+                            <button>Bekijk</button>
+                        </a>
                     </div>
                 </div>
             </div>

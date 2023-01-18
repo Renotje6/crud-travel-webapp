@@ -2,7 +2,6 @@
 require_once(__DIR__ . "/includes/config.php");
 require(ROOT_PATH . "/includes/functions/homepage.php");
 include(ROOT_PATH . "/includes/header.php");
-include(ROOT_PATH . "/includes/connection.php")
 ?>
 <main>
   <section class="search">
@@ -59,7 +58,7 @@ include(ROOT_PATH . "/includes/connection.php")
       $results = getTop6();
       foreach ($results as $result) :
       ?>
-        <a href="<?php echo BASE_URL ?>pages/search.php?destination=<?php echo $result['name'] ?>">
+        <a href="<?php echo BASE_URL ?>pages/accommodation.php?accommodation=<?php echo $result['ID'] ?>">
           <div class="top-6-item">
             <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="thumbnail" />
             <div class="top-6-item-info">

@@ -1,5 +1,5 @@
 <?php
-include_once '../includes/connection.php';
+include_once ROOT_PATH . 'includes/connection.php';
 
 function getResults($parameters)
 {

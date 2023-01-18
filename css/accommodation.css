@@ -7,9 +7,101 @@
   flex-direction: row;
 }
 
-img {
-  max-width: 500px;
-  height: auto;
+/* Image slideshow */
+.accommodation-images {
+  width: 700px;
+}
+
+.accommodation-images .slider-container {
+  position: relative;
+  margin: auto;
+}
+
+.accommodation-images .slider-container .slide img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .accommodation .accommodation-info {
@@ -38,7 +130,8 @@ img {
   margin-right: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  gap: 10px;
+  /* justify-content: flex-end; */
   align-items: flex-end;
 }
 
@@ -72,4 +165,40 @@ img {
   margin-top: 5vh;
   padding: 20px;
   background-color: var(--color-secondary-dark);
+}
+
+.accommodation-reviews {
+  margin-top: 5vh;
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.accommodation-reviews .review {
+  width: 500px;
+  height: 200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.accommodation-reviews .review .review-description {
+  overflow-y: scroll;
+  width: 300px;
+}
+
+.accommodation-reviews .review .review-info {
+  flex: 1;
+}
+
+.accommodation-reviews .review .rating {
+  color: rgb(255, 217, 0);
+}
+
+.accommodation-reviews .review .filled {
+  font-variation-settings: "FILL" 1;
 }
