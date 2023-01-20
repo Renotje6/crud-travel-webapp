@@ -1,9 +1,4 @@
-let form = document.getElementById("registration-form");
-form.addEventListener("submit", validateForm);
-
-function validateForm(e) {
-  e.preventDefault();
-
+function validateForm() {
   let usernameElement = document.forms["registration-form"]["username"];
   let emailElement = document.forms["registration-form"]["email"];
   let passwordElement = document.forms["registration-form"]["password"];
