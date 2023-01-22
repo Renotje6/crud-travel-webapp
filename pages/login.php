@@ -20,7 +20,9 @@ include(ROOT_PATH . "/includes/header.php");
             <p class="forgot-password">
                 <a href="">Wachtwoord vergeten? </a>
             </p>
-            <button type="submit" onClick="return false;">Log in</button>
+            <?php if (isset($error) && !empty($error))  echo "<p class='error'>" . $error . "</p>" ?>
+
+            <button type="submit" name="submit">Log in</button>
             <p class="bottom-text">Nog geen account? <br /><a href="<?php echo BASE_URL ?>pages/registration.php">Creëer een account</a></p>
         </form>
     </div>
