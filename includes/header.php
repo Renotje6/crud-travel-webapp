@@ -14,10 +14,10 @@ $styles = [
         "accommodation.css",
     ],
     "login.php" => [
-        "login.css",
+        "accountForm.css",
     ],
     "registration.php" => [
-        "login.css",
+        "accountForm.css",
     ],
 ];
 

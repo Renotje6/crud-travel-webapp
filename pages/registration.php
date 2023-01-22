@@ -4,8 +4,8 @@ include(ROOT_PATH . "/includes/header.php");
 include(ROOT_PATH . "/includes/functions/handleRegistration.php");
 ?>
 <main>
-    <div class="session">
-        <div class="left">
+    <div class="container">
+        <div class="image">
         </div>
         <form id="registration-form" autocomplete="off" method="POST" action="registration.php" onsubmit="return validateForm();">
             <h4><span>Inner</span>Sunn</h4>
@@ -31,7 +31,7 @@ include(ROOT_PATH . "/includes/functions/handleRegistration.php");
             <div class="error password"><?php if (isset($errors['password'])) echo $errors['password'] ?></div>
             <div class="error password"></div>
             <button type="submit" name="submit">Registreren</button>
-            <p class="create-account">Heb je al een account? <a href="<?php echo BASE_URL ?>/pages/login.php">Log in</a></p>
+            <p class="bottom-text">Heb je al een account? <a href="<?php echo BASE_URL ?>/pages/login.php">Log in</a></p>
         </form>
     </div>
 </main>

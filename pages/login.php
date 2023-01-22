@@ -5,8 +5,8 @@ include(ROOT_PATH . "/includes/header.php");
 ?>
 <main>
     <!-- <div class="container"> -->
-    <div class="session">
-        <div class="left">
+    <div class="container">
+        <div class="image">
         </div>
         <form action="" class="log-in" autocomplete="off">
             <h4><span>Inner</span>Sunn</h4>
@@ -19,8 +19,13 @@ include(ROOT_PATH . "/includes/header.php");
                 <input placeholder="Wachtwoord" type="password" name="password" id="password" autocomplete="off">
                 <label for="password">Wachtwoord:</label>
             </div>
+
+            <p class="forgot-password">
+                <a href="">Wachtwoord vergeten? </a>
+            </p>
+
             <button type="submit" onClick="return false;">Log in</button>
-            <p class="create-account">Nog geen account? <br /><a href="<?php echo BASE_URL ?>pages/registration.php">Creëer een account</a></p>
+            <p class="bottom-text">Nog geen account? <br /><a href="<?php echo BASE_URL ?>pages/registration.php">Creëer een account</a></p>
         </form>
     </div>
 </main>
