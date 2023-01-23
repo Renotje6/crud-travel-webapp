@@ -30,13 +30,13 @@ function _searchAccommodations($parameters)
         $searchConstraints .= " airport LIKE :airport";
     }
 
-    $query = "SELECT ACCOMMODATIONS.ID, ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, 
+    $query = "SELECT ACCOMMODATIONS.id, ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, 
                      ACCOMMODATIONS.price, ROUND(AVG(REVIEWS.rating)) AS rating, IMAGES.URL as image
                     FROM accommodations 
                     INNER JOIN REVIEWS
-                    ON ACCOMMODATIONS.ID = REVIEWS.accommodationID
+                    ON ACCOMMODATIONS.id = REVIEWS.accommodation_id
                     INNER JOIN IMAGES
-                    ON ACCOMMODATIONS.ID = IMAGES.accommodationID
+                    ON ACCOMMODATIONS.id = IMAGES.accommodation_id
                     WHERE IMAGES.isThumbnail = true";
 
     if (!empty($searchConstraints)) {

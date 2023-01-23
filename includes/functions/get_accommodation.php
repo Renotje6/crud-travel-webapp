@@ -23,7 +23,7 @@ function getAccommodation($accommodationId)
 function getImages($accommodationId)
 {
     global $conn;
-    $query = "SELECT URL as image FROM images WHERE accommodationID = :accommodationId";
+    $query = "SELECT URL as image FROM images WHERE accommodation_id = :accommodationId";
     $queryExec = $conn->prepare($query);
     $queryExec->bindParam(":accommodationId", $accommodationId);
     $queryExec->execute();
@@ -39,14 +39,14 @@ function getImages($accommodationId)
 function getReviews($accommodationId)
 {
     global $conn;
-    $query = "SELECT userID, review, rating FROM reviews WHERE accommodationID = :accommodationId";
+    $query = "SELECT user_id, review, rating FROM reviews WHERE accommodation_id = :accommodationId";
     $queryExec = $conn->prepare($query);
     $queryExec->bindParam(":accommodationId", $accommodationId);
     $queryExec->execute();
     $results = $queryExec->fetchAll();
     $reviews = array();
     foreach ($results as $review) {
-        $review['user'] = getUser($review['userID']);
+        $review['user'] = getUser($review['user_id']);
         $reviews[] = $review;
     }
 

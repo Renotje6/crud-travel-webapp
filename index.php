@@ -58,7 +58,7 @@ include(ROOT_PATH . "/includes/header.php");
       $results = getTop6();
       foreach ($results as $result) :
       ?>
-        <a href="<?php echo BASE_URL ?>pages/accommodation.php?accommodation=<?php echo $result['ID'] ?>">
+        <a href="<?php echo BASE_URL ?>pages/accommodation.php?accommodation=<?php echo $result['id'] ?>">
           <div class="top-6-item">
             <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="thumbnail" />
             <div class="top-6-item-info">

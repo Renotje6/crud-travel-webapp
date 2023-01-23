@@ -8,28 +8,27 @@ CREATE USER 'crud_app'@'localhost' IDENTIFIED BY 'crud_application';
 GRANT INSERT, SELECT, UPDATE, DELETE ON crud_travel_webapp.* TO 'crud_app'@'localhost';
 
 CREATE TABLE IF NOT EXISTS USERS (
-	ID INT NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(35) NOT NULL,
     password VARCHAR(100) NOT NULL,
     isAdmin BOOLEAN default false,
-    PRIMARY KEY(ID),
+    PRIMARY KEY(id),
     UNIQUE(username),
     UNIQUE(email)
 );
 
-CREATE TABLE IF NOT EXISTS SESSIONS (
-	ID INT NOT NULL AUTO_INCREMENT,
-    userID INT NOT NULL,
-    token VARCHAR(255) NOT NULL,
-    expireAt TIMESTAMP NOT NULL,
-    PRIMARY KEY(ID),
-    UNIQUE(token),
-    FOREIGN KEY (userID) REFERENCES USERS(ID)
+CREATE TABLE IF NOT EXISTS RESET_PASSWORD_TOKENS (
+	id INT NOT NULL AUTO_INCREMENT,
+    token varchar(255) NOT NULL,
+    user_id INT NOT NULL,
+    expiration_date DATE NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES USERS(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ACCOMMODATIONS (
-	ID INT NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     country VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
@@ -37,43 +36,43 @@ CREATE TABLE IF NOT EXISTS ACCOMMODATIONS (
     description TEXT NOT NULL,
     price INT(10) NOT NULL,
     airport VARCHAR(255) NOT NULL,
-    PRIMARY KEY(ID),
+    PRIMARY KEY(id),
     UNIQUE(name)
 );
 
 CREATE TABLE IF NOT EXISTS IMAGES (
-	ID INT NOT NULL AUTO_INCREMENT,
-    accommodationID INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
+    accommodation_id INT NOT NULL,
     URL VARCHAR(255) NOT NULL,
     isThumbnail BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (accommodationID) REFERENCES ACCOMMODATIONS(ID) ON UPDATE CASCADE,
+    PRIMARY KEY(id),
+    FOREIGN KEY (accommodation_id) REFERENCES ACCOMMODATIONS(id) ON UPDATE CASCADE,
     UNIQUE(URL)
 );
     
 
 CREATE TABLE IF NOT EXISTS REVIEWS (
-	ID INT NOT NULL AUTO_INCREMENT,
-    userID INT NOT NULL,
-    accommodationID INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    accommodation_id INT NOT NULL,
     review TEXT NOT NULL,
     rating INT NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (userID) REFERENCES USERS(ID) ON  UPDATE CASCADE,
-    FOREIGN KEY (accommodationID) REFERENCES ACCOMMODATIONS(ID) ON UPDATE CASCADE
+    PRIMARY KEY(id),
+    FOREIGN KEY (user_id) REFERENCES USERS(id) ON  UPDATE CASCADE,
+    FOREIGN KEY (accommodation_id) REFERENCES ACCOMMODATIONS(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS BOOKINGS (
-	ID INT NOT NULL AUTO_INCREMENT,
-    userID INT NOT NULL,
-    accommodationID INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    accommodation_id INT NOT NULL,
     numberOfPeople INT NOT NULL,
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
     isPaid BOOLEAN NOT NULL DEFAULT FALSE,
-	PRIMARY KEY(ID),
-    FOREIGN KEY (userID) REFERENCES USERS(ID) ON  UPDATE CASCADE,
-    FOREIGN KEY (accommodationID) REFERENCES ACCOMMODATIONS(ID) ON UPDATE CASCADE
+	PRIMARY KEY(id),
+    FOREIGN KEY (user_id) REFERENCES USERS(id) ON  UPDATE CASCADE,
+    FOREIGN KEY (accommodation_id) REFERENCES ACCOMMODATIONS(id) ON UPDATE CASCADE
 );insert into USERS (username, email, password, isAdmin) values ('fraison0', 'aroubert0@mediafire.com', 'UqHYRSVbfHS', false);
 insert into USERS (username, email, password, isAdmin) values ('aattkins1', 'aaldgate1@seesaa.net', 'ZBc8XK5Nus', false);
 insert into USERS (username, email, password, isAdmin) values ('cfetteplace2', 'tsute2@mayoclinic.com', 'JYCDGhIE9DGs', false);
@@ -133,328 +132,328 @@ insert into ACCOMMODATIONS (name, country, city, address, description, price, ai
 insert into ACCOMMODATIONS (name, country, city, address, description, price, airport) values ('Naja haje', 'Greece', 'Ouranoupolis', '219 Ronald Regan Road', "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta lacus est, vel commodo tortor interdum quis. Vestibulum et justo porta, luctus dolor nec, lobortis urna. Pellentesque dictum, justo vel aliquet hendrerit, eros nisl pharetra diam, sed tempus quam sem nec odio. Praesent a efficitur enim, nec condimentum quam. Maecenas dictum quam a magna pellentesque commodo. Morbi quis suscipit neque. Etiam diam nisi, luctus in leo nec, porta scelerisque sapien. Duis facilisis leo vestibulum fermentum ultricies. Praesent eget molestie sapien. Suspendisse tempor purus eget odio rutrum porttitor. Ut bibendum orci odio, at facilisis arcu aliquet vel. Suspendisse condimentum libero a lobortis tempus. Fusce sed mi augue. Ut placerat efficitur risus. Ut feugiat mattis est vel accumsan. In feugiat nisl vitae mauris maximus vulputate.", 686, 'Ziro Airport');
 insert into ACCOMMODATIONS (name, country, city, address, description, price, airport) values ('Kobus defassa', 'Spain', 'Almeria', '833 Mcguire Hill', "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta lacus est, vel commodo tortor interdum quis. Vestibulum et justo porta, luctus dolor nec, lobortis urna. Pellentesque dictum, justo vel aliquet hendrerit, eros nisl pharetra diam, sed tempus quam sem nec odio. Praesent a efficitur enim, nec condimentum quam. Maecenas dictum quam a magna pellentesque commodo. Morbi quis suscipit neque. Etiam diam nisi, luctus in leo nec, porta scelerisque sapien. Duis facilisis leo vestibulum fermentum ultricies. Praesent eget molestie sapien. Suspendisse tempor purus eget odio rutrum porttitor. Ut bibendum orci odio, at facilisis arcu aliquet vel. Suspendisse condimentum libero a lobortis tempus. Fusce sed mi augue. Ut placerat efficitur risus. Ut feugiat mattis est vel accumsan. In feugiat nisl vitae mauris maximus vulputate.", 765, 'Ouani Airport');
 insert into ACCOMMODATIONS (name, country, city, address, description, price, airport) values ('Ceratotherium simum', 'Greece', 'Galátsi', '0252 Fair Oaks Street', "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta lacus est, vel commodo tortor interdum quis. Vestibulum et justo porta, luctus dolor nec, lobortis urna. Pellentesque dictum, justo vel aliquet hendrerit, eros nisl pharetra diam, sed tempus quam sem nec odio. Praesent a efficitur enim, nec condimentum quam. Maecenas dictum quam a magna pellentesque commodo. Morbi quis suscipit neque. Etiam diam nisi, luctus in leo nec, porta scelerisque sapien. Duis facilisis leo vestibulum fermentum ultricies. Praesent eget molestie sapien. Suspendisse tempor purus eget odio rutrum porttitor. Ut bibendum orci odio, at facilisis arcu aliquet vel. Suspendisse condimentum libero a lobortis tempus. Fusce sed mi augue. Ut placerat efficitur risus. Ut feugiat mattis est vel accumsan. In feugiat nisl vitae mauris maximus vulputate.", 825, 'Fishermans Airfield');
-insert into ACCOMMODATIONS (name, country, city, address, description, price, airport) values ('Anthropoides paradisea', 'France', 'Martigues', '8806 Village Green Circle', "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta lacus est, vel commodo tortor interdum quis. Vestibulum et justo porta, luctus dolor nec, lobortis urna. Pellentesque dictum, justo vel aliquet hendrerit, eros nisl pharetra diam, sed tempus quam sem nec odio. Praesent a efficitur enim, nec condimentum quam. Maecenas dictum quam a magna pellentesque commodo. Morbi quis suscipit neque. Etiam diam nisi, luctus in leo nec, porta scelerisque sapien. Duis facilisis leo vestibulum fermentum ultricies. Praesent eget molestie sapien. Suspendisse tempor purus eget odio rutrum porttitor. Ut bibendum orci odio, at facilisis arcu aliquet vel. Suspendisse condimentum libero a lobortis tempus. Fusce sed mi augue. Ut placerat efficitur risus. Ut feugiat mattis est vel accumsan. In feugiat nisl vitae mauris maximus vulputate.", 233, 'São Pedro Airport');INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (1, '1/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (1, '1/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (1, '1/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (1, '1/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (1, '1/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (2, '2/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (2, '2/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (2, '2/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (2, '2/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (2, '2/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (3, '3/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (3, '3/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (3, '3/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (3, '3/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (3, '3/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (4, '4/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (4, '4/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (4, '4/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (4, '4/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (4, '4/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (5, '5/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (5, '5/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (5, '5/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (5, '5/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (5, '5/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (6, '6/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (6, '6/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (6, '6/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (6, '6/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (6, '6/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (7, '7/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (7, '7/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (7, '7/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (7, '7/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (7, '7/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (8, '8/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (8, '8/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (8, '8/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (8, '8/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (8, '8/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (9, '9/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (9, '9/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (9, '9/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (9, '9/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (9, '9/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (10, '10/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (10, '10/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (10, '10/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (10, '10/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (10, '10/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (11, '11/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (11, '11/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (11, '11/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (11, '11/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (11, '11/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (12, '12/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (12, '12/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (12, '12/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (12, '12/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (12, '12/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (13, '13/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (13, '13/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (13, '13/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (13, '13/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (13, '13/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (14, '14/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (14, '14/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (14, '14/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (14, '14/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (14, '14/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (15, '15/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (15, '15/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (15, '15/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (15, '15/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (15, '15/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (16, '16/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (16, '16/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (16, '16/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (16, '16/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (16, '16/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (17, '17/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (17, '17/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (17, '17/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (17, '17/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (17, '17/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (18, '18/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (18, '18/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (18, '18/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (18, '18/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (18, '18/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (19, '19/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (19, '19/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (19, '19/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (19, '19/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (19, '19/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (20, '20/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (20, '20/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (20, '20/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (20, '20/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (20, '20/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (21, '21/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (21, '21/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (21, '21/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (21, '21/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (21, '21/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (22, '22/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (22, '22/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (22, '22/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (22, '22/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (22, '22/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (23, '23/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (23, '23/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (23, '23/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (23, '23/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (23, '23/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (24, '24/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (24, '24/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (24, '24/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (24, '24/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (24, '24/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (25, '25/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (25, '25/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (25, '25/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (25, '25/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (25, '25/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (26, '26/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (26, '26/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (26, '26/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (26, '26/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (26, '26/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (27, '27/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (27, '27/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (27, '27/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (27, '27/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (27, '27/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (28, '28/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (28, '28/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (28, '28/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (28, '28/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (28, '28/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (29, '29/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (29, '29/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (29, '29/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (29, '29/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (29, '29/picture5.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (30, '30/picture1.jpg', TRUE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (30, '30/picture2.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (30, '30/picture3.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (30, '30/picture4.jpg', FALSE);
-INSERT INTO IMAGES (accommodationID, URL, isThumbnail) VALUES (30, '30/picture5.jpg', FALSE);
-insert into REVIEWS (userID, accommodationID, review, rating) values (14, 30, 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (1, 20, 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (23, 4, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+insert into ACCOMMODATIONS (name, country, city, address, description, price, airport) values ('Anthropoides paradisea', 'France', 'Martigues', '8806 Village Green Circle', "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porta lacus est, vel commodo tortor interdum quis. Vestibulum et justo porta, luctus dolor nec, lobortis urna. Pellentesque dictum, justo vel aliquet hendrerit, eros nisl pharetra diam, sed tempus quam sem nec odio. Praesent a efficitur enim, nec condimentum quam. Maecenas dictum quam a magna pellentesque commodo. Morbi quis suscipit neque. Etiam diam nisi, luctus in leo nec, porta scelerisque sapien. Duis facilisis leo vestibulum fermentum ultricies. Praesent eget molestie sapien. Suspendisse tempor purus eget odio rutrum porttitor. Ut bibendum orci odio, at facilisis arcu aliquet vel. Suspendisse condimentum libero a lobortis tempus. Fusce sed mi augue. Ut placerat efficitur risus. Ut feugiat mattis est vel accumsan. In feugiat nisl vitae mauris maximus vulputate.", 233, 'São Pedro Airport');INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (1, '1/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (1, '1/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (1, '1/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (1, '1/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (1, '1/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (2, '2/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (2, '2/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (2, '2/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (2, '2/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (2, '2/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (3, '3/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (3, '3/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (3, '3/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (3, '3/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (3, '3/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (4, '4/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (4, '4/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (4, '4/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (4, '4/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (4, '4/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (5, '5/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (5, '5/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (5, '5/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (5, '5/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (5, '5/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (6, '6/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (6, '6/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (6, '6/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (6, '6/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (6, '6/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (7, '7/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (7, '7/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (7, '7/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (7, '7/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (7, '7/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (8, '8/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (8, '8/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (8, '8/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (8, '8/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (8, '8/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (9, '9/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (9, '9/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (9, '9/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (9, '9/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (9, '9/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (10, '10/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (10, '10/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (10, '10/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (10, '10/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (10, '10/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (11, '11/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (11, '11/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (11, '11/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (11, '11/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (11, '11/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (12, '12/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (12, '12/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (12, '12/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (12, '12/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (12, '12/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (13, '13/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (13, '13/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (13, '13/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (13, '13/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (13, '13/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (14, '14/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (14, '14/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (14, '14/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (14, '14/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (14, '14/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (15, '15/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (15, '15/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (15, '15/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (15, '15/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (15, '15/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (16, '16/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (16, '16/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (16, '16/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (16, '16/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (16, '16/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (17, '17/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (17, '17/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (17, '17/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (17, '17/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (17, '17/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (18, '18/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (18, '18/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (18, '18/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (18, '18/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (18, '18/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (19, '19/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (19, '19/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (19, '19/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (19, '19/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (19, '19/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (20, '20/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (20, '20/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (20, '20/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (20, '20/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (20, '20/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (21, '21/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (21, '21/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (21, '21/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (21, '21/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (21, '21/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (22, '22/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (22, '22/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (22, '22/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (22, '22/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (22, '22/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (23, '23/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (23, '23/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (23, '23/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (23, '23/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (23, '23/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (24, '24/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (24, '24/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (24, '24/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (24, '24/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (24, '24/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (25, '25/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (25, '25/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (25, '25/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (25, '25/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (25, '25/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (26, '26/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (26, '26/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (26, '26/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (26, '26/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (26, '26/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (27, '27/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (27, '27/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (27, '27/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (27, '27/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (27, '27/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (28, '28/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (28, '28/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (28, '28/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (28, '28/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (28, '28/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (29, '29/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (29, '29/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (29, '29/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (29, '29/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (29, '29/picture5.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (30, '30/picture1.jpg', TRUE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (30, '30/picture2.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (30, '30/picture3.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (30, '30/picture4.jpg', FALSE);
+INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (30, '30/picture5.jpg', FALSE);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (14, 30, 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 3);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (1, 20, 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 2);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (23, 4, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
 
 Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (15, 20, 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (15, 20, 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
 
 Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
 
 Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (5, 7, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (5, 7, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
 
 Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (21, 3, 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (21, 3, 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
 
 Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (16, 26, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (16, 26, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
 
 Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
 
 Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (4, 24, 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (4, 24, 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
 
 Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
 
 In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (16, 13, 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (15, 13, 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (16, 13, 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 4);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (15, 13, 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
 
 Sed ante. Vivamus tortor. Duis mattis egestas metus.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (6, 26, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (6, 26, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
 
 Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
 
 Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (27, 18, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (7, 30, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (27, 18, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 3);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (7, 30, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
 
 Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (8, 1, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (5, 3, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (27, 2, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (8, 1, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 1);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (5, 3, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 5);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (27, 2, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
 Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (24, 20, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (25, 29, 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (24, 20, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 3);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (25, 29, 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
 
 Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
 
 Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (30, 1, 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (30, 1, 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
 
 Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
 
 In congue. Etiam justo. Etiam pretium iaculis justo.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (5, 16, 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (20, 25, 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (13, 14, 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (5, 16, 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 1);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (20, 25, 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 3);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (13, 14, 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
 
 Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (2, 19, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (27, 5, 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (2, 19, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 5);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (27, 5, 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
 
 Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
 
 Phasellus in felis. Donec semper sapien a libero. Nam dui.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (3, 9, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (3, 9, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
 
 Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
 
 Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (27, 23, 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (27, 23, 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
 
 Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (13, 26, 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (13, 26, 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
 
 Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (4, 16, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (4, 16, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
 
 Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
 
 Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (14, 22, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (14, 22, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
 
 Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (6, 4, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (6, 4, 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
 
 Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (12, 3, 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (12, 3, 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
 
 Phasellus in felis. Donec semper sapien a libero. Nam dui.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (3, 15, 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (3, 15, 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
 
 Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
 Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (10, 9, 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (30, 28, 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (20, 18, 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (10, 9, 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 2);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (30, 28, 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 1);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (20, 18, 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.
 
 Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (4, 19, 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (4, 19, 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
 
 Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (19, 21, 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (4, 1, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (19, 21, 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 2);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (4, 1, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
 
 Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (17, 9, 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (17, 9, 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
 
 Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 2);
-insert into REVIEWS (userID, accommodationID, review, rating) values (24, 24, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (8, 30, 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (24, 24, 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 1);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (8, 30, 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
 
 Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
 
 Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 4);
-insert into REVIEWS (userID, accommodationID, review, rating) values (13, 30, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (13, 30, 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
 Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (19, 12, 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (19, 12, 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
 
 Phasellus in felis. Donec semper sapien a libero. Nam dui.
 
 Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (9, 15, 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (9, 15, 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
 
 Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
 
 Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (8, 16, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (8, 16, 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
 
 Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
 
 Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 1);
-insert into REVIEWS (userID, accommodationID, review, rating) values (9, 3, 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (9, 3, 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
 
 Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (25, 16, 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (26, 11, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (25, 16, 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 5);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (26, 11, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
 
 Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
 
 Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 3);
-insert into REVIEWS (userID, accommodationID, review, rating) values (14, 23, 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 5);
-insert into REVIEWS (userID, accommodationID, review, rating) values (26, 4, 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (14, 23, 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 5);
+insert into REVIEWS (user_id, accommodation_id, review, rating) values (26, 4, 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
 
 Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
 
 Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 5);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (29, 2, 1, '2022-02-04', '2022-06-10', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (4, 5, 1, '2022-05-07', '2022-07-08', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (17, 28, 2, '2022-02-22', '2022-08-01', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (15, 23, 2, '2022-04-15', '2022-07-18', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (18, 14, 2, '2022-02-11', '2022-06-10', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (11, 12, 2, '2022-01-19', '2022-05-21', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (10, 8, 5, '2022-04-21', '2022-07-18', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (26, 29, 5, '2022-01-31', '2022-07-17', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (2, 11, 2, '2022-04-30', '2022-06-17', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (4, 1, 4, '2022-01-12', '2022-05-30', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (22, 9, 3, '2022-04-20', '2022-05-15', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (20, 3, 4, '2022-05-02', '2022-06-11', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (2, 5, 3, '2022-02-08', '2022-07-19', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (23, 5, 1, '2022-02-25', '2022-07-24', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (29, 13, 4, '2022-01-26', '2022-07-08', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (9, 16, 5, '2022-02-19', '2022-07-30', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (7, 13, 3, '2022-01-18', '2022-06-19', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (19, 13, 2, '2022-04-18', '2022-08-07', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (4, 27, 3, '2022-04-12', '2022-07-05', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (12, 20, 4, '2022-02-15', '2022-08-07', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (26, 27, 5, '2022-05-06', '2022-06-02', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (7, 22, 1, '2022-03-26', '2022-05-10', true);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (6, 5, 3, '2022-03-30', '2022-05-15', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (5, 30, 1, '2022-03-13', '2022-05-19', false);
-insert into BOOKINGS (userID, accommodationID, numberOfPeople, startDate, endDate, isPaid) values (18, 11, 2, '2022-01-30', '2022-06-09', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (29, 2, 1, '2022-02-04', '2022-06-10', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (4, 5, 1, '2022-05-07', '2022-07-08', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (17, 28, 2, '2022-02-22', '2022-08-01', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (15, 23, 2, '2022-04-15', '2022-07-18', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (18, 14, 2, '2022-02-11', '2022-06-10', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (11, 12, 2, '2022-01-19', '2022-05-21', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (10, 8, 5, '2022-04-21', '2022-07-18', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (26, 29, 5, '2022-01-31', '2022-07-17', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (2, 11, 2, '2022-04-30', '2022-06-17', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (4, 1, 4, '2022-01-12', '2022-05-30', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (22, 9, 3, '2022-04-20', '2022-05-15', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (20, 3, 4, '2022-05-02', '2022-06-11', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (2, 5, 3, '2022-02-08', '2022-07-19', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (23, 5, 1, '2022-02-25', '2022-07-24', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (29, 13, 4, '2022-01-26', '2022-07-08', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (9, 16, 5, '2022-02-19', '2022-07-30', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (7, 13, 3, '2022-01-18', '2022-06-19', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (19, 13, 2, '2022-04-18', '2022-08-07', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (4, 27, 3, '2022-04-12', '2022-07-05', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (12, 20, 4, '2022-02-15', '2022-08-07', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (26, 27, 5, '2022-05-06', '2022-06-02', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (7, 22, 1, '2022-03-26', '2022-05-10', true);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (6, 5, 3, '2022-03-30', '2022-05-15', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (5, 30, 1, '2022-03-13', '2022-05-19', false);
+insert into BOOKINGS (user_id, accommodation_id, numberOfPeople, startDate, endDate, isPaid) values (18, 11, 2, '2022-01-30', '2022-06-09', false);

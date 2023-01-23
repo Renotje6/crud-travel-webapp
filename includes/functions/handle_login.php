@@ -4,17 +4,17 @@ session_start();
 include ROOT_PATH . 'includes/connection.php';
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     $error = "";
 
-    if (empty($username) || empty($password)) {
+    if (empty($email) || empty($password)) {
         $error = "Vul alle velden in";
         return;
     } else {
-        $sql = "SELECT * FROM USERS WHERE username = :username";
+        $sql = "SELECT * FROM USERS WHERE email = :email";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -22,10 +22,10 @@ if (isset($_POST['submit'])) {
             if (password_verify($password, $user['password'])) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['user'] = $user['id'];
-                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['username'] = $user['username'];
                 $_SESSION['last_ping'] = time();
 
-                header('Location: ./index.php');
+                header('Location: ' . BASE_URL . 'index.php');
             } else {
                 $error = "Ongeldige gebruikersnaam of wachtwoord.";
             }

@@ -1,7 +1,12 @@
 <?php
+session_start();
 require_once("../includes/config.php");
 include(ROOT_PATH . "/includes/header.php");
-include(ROOT_PATH . "/includes/functions/handleRegistration.php");
+include(ROOT_PATH . "/includes/functions/handle_registration.php");
+
+if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+    header('Location: ' . BASE_URL . 'index.php');
+}
 ?>
 <main>
     <div class="container">

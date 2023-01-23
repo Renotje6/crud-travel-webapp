@@ -1,7 +1,7 @@
 <?php
 require_once("../includes/config.php");
 include(ROOT_PATH . "/includes/header.php");
-require_once(ROOT_PATH . "/includes/functions/getAccommodation.php");
+require_once(ROOT_PATH . "/includes/functions/get_accommodation.php");
 
 if (!isset($_GET['accommodation'])) {
     header("Location: " . BASE_URL . "pages/search.php");

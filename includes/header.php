@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 require_once(__DIR__ . "/config.php");
 
 $styles = [
@@ -14,10 +18,13 @@ $styles = [
         "accommodation.css",
     ],
     "login.php" => [
-        "accountForm.css",
+        "account_form.css",
     ],
     "registration.php" => [
-        "accountForm.css",
+        "account_form.css",
+    ],
+    "forgot_password.php" => [
+        "account_form.css",
     ],
 ];
 
@@ -27,7 +34,7 @@ $scripts = [
     ],
 
     "registration.php" => [
-        "registrationFormValidation.js",
+        "registration_form_validation.js",
     ],
 ]
 ?>
@@ -81,5 +88,12 @@ $scripts = [
             <li class="nav-item"><a href="#">Contact</a></li>
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
-        <p class="button"><a href="<?php echo BASE_URL ?>pages/login.php">Login</a></p>
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+            echo "<p class='button'><a href='" . BASE_URL . "includes/functions/logout.php'>Welkom, " . $_SESSION['username'] . "</a></p>";
+        } else {
+            echo "<p class='button'><a href='" . BASE_URL . "pages/login.php'>Login</a></p>";
+        }
+
+        ?>
     </nav>
