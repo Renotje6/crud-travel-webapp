@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include ROOT_PATH . 'includes/connection.php';
 
 if (isset($_POST['submit'])) {

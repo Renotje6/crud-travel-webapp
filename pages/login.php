@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once("../includes/config.php");
 include(ROOT_PATH . "/includes/functions/handle_login.php");
 include(ROOT_PATH . "/includes/header.php");
