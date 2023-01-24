@@ -1,3 +1,8 @@
+main {
+  width: 80vw;
+  margin: auto;
+}
+
 .accommodation {
   margin-top: 5vh;
   background-color: var(--color-secondary-dark);
