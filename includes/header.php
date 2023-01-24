@@ -8,11 +8,11 @@ require_once(__DIR__ . "/config.php");
 $styles = [
     "index.php" => [
         "homepage.css",
-        "searchsection.css",
+        "search_section.css",
     ],
     "search.php" => [
-        "searchpage.css",
-        "searchsection.css",
+        "search_page.css",
+        "search_section.css",
     ],
     "accommodation.php" => [
         "accommodation.css",
@@ -26,6 +26,10 @@ $styles = [
     "forgot_password.php" => [
         "account_form.css",
     ],
+
+    "change_password.php" => [
+        "account_form.css",
+    ],
 ];
 
 $scripts = [
@@ -33,9 +37,12 @@ $scripts = [
         "slideshow.js",
     ],
 
-    "registration.php" => [
-        "registration_form_validation.js",
-    ],
+    // "registration.php" => [
+    //     "registration_form_validation.js",
+    // ],
+    // "change_password.php" => [
+    //     "change_password_form_validation.js",
+    // ],
 ]
 ?>
 

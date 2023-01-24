@@ -11,7 +11,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
     <div class="container">
         <div class="image">
         </div>
-        <form method="POST" action="login.php" class="log-in" autocomplete="off">
+        <form method="POST" action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?> class="log-in" autocomplete="off">
             <h4><span>Inner</span>Sunn</h4>
             <p>Welkom terug! Log in om je account te bekijken:</p>
             <?php if (isset($error) && !empty($error))  echo "<p class='error'>" . $error . "</p>" ?>

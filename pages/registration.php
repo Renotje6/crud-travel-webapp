@@ -12,7 +12,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
     <div class="container">
         <div class="image">
         </div>
-        <form id="registration-form" autocomplete="off" method="POST" action="registration.php" onsubmit="return validateForm();">
+        <form id="registration-form" autocomplete="off" method="POST" action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>>
             <h4><span>Inner</span>Sunn</h4>
             <p>Welkom! Creëer een nieuw account.</p>
             <div class="floating-label">
@@ -34,9 +34,8 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
                 <label for="password">Wachtwoord:</label>
             </div>
             <div class="error password"><?php if (isset($errors['password'])) echo $errors['password'] ?></div>
-            <div class="error password"></div>
             <button type="submit" name="submit">Registreren</button>
-            <p class="bottom-text">Heb je al een account? <a href="<?php echo BASE_URL ?>/pages/login.php">Log in</a></p>
+            <p class="bottom-text">Heb je al een account? <a href="<?php echo BASE_URL ?>pages/login.php">Log in</a></p>
         </form>
     </div>
 </main>
