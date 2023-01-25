@@ -65,7 +65,7 @@ if (isset($_POST['submit']) && isset($_POST['email'])) {
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('1204544@student.roc-nijmegen.nl', 'CRUD App');
+            $mail->setFrom('1204544@student.roc-nijmegen.nl', 'InnerSunn');
             $mail->addAddress($to);
             $mail->isHTML(true);
             $mail->Subject = $subject;
