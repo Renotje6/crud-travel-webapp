@@ -1,12 +1,12 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 require ROOT_PATH . 'libraries/PHPMailer/src/Exception.php';
 require ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
 require ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
 include ROOT_PATH . 'includes/connection.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['submit']) && isset($_POST['email'])) {
     $email = $_POST['email'];
