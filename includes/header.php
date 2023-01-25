@@ -30,6 +30,9 @@ $styles = [
     "change_password.php" => [
         "account_form.css",
     ],
+    "booking.php" => [
+        "booking.css",
+    ],
 ];
 
 $scripts = [
@@ -37,12 +40,9 @@ $scripts = [
         "slideshow.js",
     ],
 
-    // "registration.php" => [
-    //     "registration_form_validation.js",
-    // ],
-    // "change_password.php" => [
-    //     "change_password_form_validation.js",
-    // ],
+    "booking.php" => [
+        "booking.js",
+    ],
 ]
 ?>
 

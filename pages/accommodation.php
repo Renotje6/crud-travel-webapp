@@ -46,7 +46,7 @@ if (!$accommodation) {
             <div class="price">
                 <h3>Vanaf Prijs</h3>
                 <p>&euro;<?php echo $accommodation['price'] ?></p>
-                <button>Boek nu</button>
+                <a href="<?php echo BASE_URL ?>pages/booking.php?accommodation=<?php echo $accommodation['id'] ?>"><button>Boek nu</button></a>
             </div>
         </div>
     </div>

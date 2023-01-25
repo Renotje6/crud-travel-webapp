@@ -110,6 +110,7 @@ main {
 }
 
 .accommodation .accommodation-info {
+  position: relative;
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
@@ -131,13 +132,14 @@ main {
 }
 
 .accommodation .accommodation-info .price {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   flex-grow: 1;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* justify-content: flex-end; */
-  align-items: flex-end;
 }
 
 .accommodation .accommodation-info .price h3 {
@@ -152,6 +154,7 @@ main {
 
 .accommodation .accommodation-info .price button {
   background-color: var(--color-primary);
+  width: 100%;
   color: var(--color-secondary);
   border: none;
   border-radius: 1.5rem;

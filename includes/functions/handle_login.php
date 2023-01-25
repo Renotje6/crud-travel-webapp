@@ -5,6 +5,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $error = "";
+    $redirect = $_SESSION['redirect'] ?? BASE_URL . 'index.php';
 
     if (empty($email) || empty($password)) {
         $error = "Vul alle velden in";
@@ -23,7 +24,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['last_ping'] = time();
 
-                header('Location: ' . BASE_URL . 'index.php');
+                header('Location: ' . $redirect);
             } else {
                 $error = "Ongeldige gebruikersnaam of wachtwoord.";
             }
