@@ -6,7 +6,9 @@ include(ROOT_PATH . "/includes/functions/handle_login.php");
 include(ROOT_PATH . "/includes/header.php");
 
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-    header('Location: ' . BASE_URL . 'index.php');
+    $redirect = $_SESSION['redirect'] ?? BASE_URL . 'index.php';
+    unset($_SESSION['redirect']);
+    header('Location: ' . $redirect);
 }
 ?>
 <main>

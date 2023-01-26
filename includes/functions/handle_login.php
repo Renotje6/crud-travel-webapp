@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['last_ping'] = time();
 
-                header('Location: ' . $redirect);
+                // header('Location: ' . $redirect);
             } else {
                 $error = "Ongeldige gebruikersnaam of wachtwoord.";
             }
