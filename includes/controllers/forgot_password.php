@@ -3,7 +3,7 @@
 require ROOT_PATH . 'libraries/PHPMailer/src/Exception.php';
 require ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
 require ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
-include ROOT_PATH . 'includes/connection.php';
+include ROOT_PATH . 'includes/functions/database.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -28,23 +28,7 @@ if (isset($_POST['submit']) && isset($_POST['email'])) {
                 $token = bin2hex(random_bytes(32));
             }
 
-            $expFormat = mktime(
-                date("H") + 1,
-                date("i"),
-                date("s"),
-                date("m"),
-                date("d"),
-                date("Y")
-            );
-
-            $expDate = date("Y-m-d H:i:s", $expFormat);
-
-            $sql = "INSERT INTO RESET_PASSWORD_TOKENS (user_id, token, expiration_date) VALUES (:user_id, :token, :expiration_date)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':user_id', $user['id'], PDO::PARAM_INT);
-            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-            $stmt->bindParam(':expiration_date', $expDate, PDO::PARAM_STR);
-            $stmt->execute();
+            insertToken($user['id'], $token);
 
             $to = $user['email'];
             $subject = "Wachtwoord resetten";
@@ -80,55 +64,5 @@ if (isset($_POST['submit']) && isset($_POST['email'])) {
         } else {
             $error = 'Geen account gevonden met dit e-mailadres';
         }
-    }
-}
-
-// function that checks if a token exists for user
-function getExistingToken($user_id)
-{
-    global $conn;
-
-    $sql = "SELECT token FROM RESET_PASSWORD_TOKENS WHERE user_id = :user_id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $token = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($token) {
-        if (checkIfTokenIsValid($token['token'])) {
-            return $token['token'];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-}
-
-
-// function that checks if a valid token exists for the user
-function checkIfTokenIsValid($token)
-{
-    global $conn;
-
-    $sql = "SELECT * FROM RESET_PASSWORD_TOKENS WHERE token = :token";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-    $stmt->execute();
-    $token = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($token) {
-        $expDate = $token['expiration_date'];
-        $expDate = strtotime($expDate);
-        $today = date("Y-m-d H:i:s");
-        $today = strtotime($today);
-
-        if ($today > $expDate || $token['expired'] == 1) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        return false;
     }
 }

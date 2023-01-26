@@ -1,5 +1,6 @@
 <?php
-include ROOT_PATH . 'includes/connection.php';
+include_once ROOT_PATH . 'includes/functions/database.php';
+
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
@@ -11,11 +12,7 @@ if (isset($_POST['submit'])) {
         $error = "Vul alle velden in";
         return;
     } else {
-        $sql = "SELECT * FROM USERS WHERE email = :email";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = getUserByEmail($email);
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
@@ -24,7 +21,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['last_ping'] = time();
 
-                // header('Location: ' . $redirect);
+                header('Location: ' . $redirect);
             } else {
                 $error = "Ongeldige gebruikersnaam of wachtwoord.";
             }

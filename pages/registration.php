@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/header.php");
-include(ROOT_PATH . "/includes/functions/handle_registration.php");
+include(ROOT_PATH . "/includes/partials/header.php");
+include(ROOT_PATH . "/includes/controllers/registration.php");
 
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
     header('Location: ' . BASE_URL . 'index.php');
@@ -24,7 +24,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
             <div class="floating-label">
                 <input placeholder="Email" type="text" name="email" id="email" autocomplete="off" <?php if (isset($values['email'])) echo 'value=' . $values['email'] . ' ';
                                                                                                     if (isset($errors['email'])) echo ' style="border-bottom: 1px red solid" '
-                                                                                                    ?>required>
+                                                                                                    ?> required>
                 <label for="email">Email:</label>
             </div>
             <div class="error email"><?php if (isset($errors['email'])) echo $errors['email'] ?></div>

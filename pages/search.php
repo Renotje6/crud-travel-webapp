@@ -1,7 +1,7 @@
 <?php
 require_once("../includes/config.php");
-require(ROOT_PATH . "/includes/functions/searchbar.php");
-include(ROOT_PATH . "/includes/header.php");
+require(ROOT_PATH . "/includes/controllers/search.php");
+include(ROOT_PATH . "/includes/partials/header.php");
 ?>
 <main>
     <section class="search">
@@ -16,27 +16,26 @@ include(ROOT_PATH . "/includes/header.php");
     </section>
     <section class="results">
         <?php
-        $results = getResults($_GET);
-        if (!empty($results))
-            foreach ($results as $result) :
+        if (!empty($accommodations))
+            foreach ($accommodations as $accommodation) :
         ?>
 
             <div class="result-card">
-                <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $result['image'] ?>" alt="Thumbnail" />
+                <img loading="lazy" src="<?php echo BASE_URL; ?>resources/images/accommodations/<?php echo $accommodation['image'] ?>" alt="Thumbnail" />
                 <div class="result-card-info">
                     <div class="card-title">
                         <div>
-                            <h3><?php echo $result['name'] ?></h3>
-                            <p><?php echo $result['country'] . ' ' . $result['city'] ?></p>
-                            <p><?php echo $result['address'] ?></p>
+                            <h3><?php echo $accommodation['name'] ?></h3>
+                            <p><?php echo $accommodation['country'] . ' ' . $accommodation['city'] ?></p>
+                            <p><?php echo $accommodation['address'] ?></p>
                         </div>
                         <div class="rating">
                             <?php
-                            for ($i = 0; $i < $result['rating']; $i++) {
+                            for ($i = 0; $i < $accommodation['rating']; $i++) {
                                 echo '<i class="material-symbols-outlined filled">star</i>';
                             };
 
-                            for ($i = 0; $i < 5 - $result['rating']; $i++) {
+                            for ($i = 0; $i < 5 - $accommodation['rating']; $i++) {
                                 echo '<i class="material-symbols-outlined">star</i>';
                             };
                             ?>
@@ -45,9 +44,9 @@ include(ROOT_PATH . "/includes/header.php");
                     <div class="card-description">
                         <div class="price">
                             <h2>Vanaf Prijs</h2>
-                            <p>&euro;<?php echo $result['price'] ?></p>
+                            <p>&euro;<?php echo $accommodation['price'] ?></p>
                         </div>
-                        <a href="<?php echo BASE_URL; ?>pages/accommodation.php?accommodation=<?php echo $result['id']; ?>">
+                        <a href="<?php echo BASE_URL; ?>pages/accommodation.php?accommodation=<?php echo $accommodation['id']; ?>">
                             <button>Bekijk</button>
                         </a>
                     </div>
@@ -60,4 +59,4 @@ include(ROOT_PATH . "/includes/header.php");
     </section>
 
 </main>
-<?php include(ROOT_PATH . "includes/footer.php"); ?>
+<?php include(ROOT_PATH . "includes/partials/footer.php"); ?>

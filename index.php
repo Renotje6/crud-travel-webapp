@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/includes/config.php");
-require(ROOT_PATH . "/includes/functions/homepage.php");
-include(ROOT_PATH . "/includes/header.php");
+require(ROOT_PATH . "/includes/controllers/homepage.php");
+include(ROOT_PATH . "/includes/partials/header.php");
 ?>
 <main>
   <section class="search">
@@ -20,8 +20,8 @@ include(ROOT_PATH . "/includes/header.php");
     <h1 class="top-3-title">Top 3 landen</h1>
     <div class="top-3-items">
 
-      <?php $results = getTop3Locations();
-      foreach ($results as $result) : ?>
+      <?php
+      foreach ($top3Locations as $result) : ?>
         <a href="<?php echo BASE_URL ?>pages/search.php?destination=<?php echo $result['country'] ?>">
           <div class="top-3-item">
             <img src="<?php echo BASE_URL; ?>resources/images/cote-d-azur-cntraveller-26july13-martin-morrell_27.webp" alt="cote-d-azur-cntraveller-26july13-martin-morrell_27" />
@@ -55,8 +55,7 @@ include(ROOT_PATH . "/includes/header.php");
     <h1 class="top-6-title">Top 6 accomodaties</h1>
     <div class="top-6-items">
       <?php
-      $results = getTop6();
-      foreach ($results as $result) :
+      foreach ($top6Accommodations as $result) :
       ?>
         <a href="<?php echo BASE_URL ?>pages/accommodation.php?accommodation=<?php echo $result['id'] ?>">
           <div class="top-6-item">
@@ -91,4 +90,4 @@ include(ROOT_PATH . "/includes/header.php");
     </div>
   </section>
 </main>
-<?php include(ROOT_PATH . "includes/footer.php"); ?>
+<?php include(ROOT_PATH . "includes/partials/footer.php"); ?>

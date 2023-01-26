@@ -1,9 +1,7 @@
 <?php
-session_start();
-
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/functions/handle_login.php");
-include(ROOT_PATH . "/includes/header.php");
+include(ROOT_PATH . "/includes/controllers/login.php");
+include(ROOT_PATH . "/includes/partials/header.php");
 
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
     $redirect = $_SESSION['redirect'] ?? BASE_URL . 'index.php';

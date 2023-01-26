@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/header.php");
+include(ROOT_PATH . "/includes/partials/header.php");
 require_once(ROOT_PATH . "/includes/functions/get_accommodation.php");
 
 if (!isset($_GET['accommodation'])) {
@@ -9,7 +9,7 @@ if (!isset($_GET['accommodation'])) {
     $accommodationId = $_GET['accommodation'];
 }
 
-$accommodation = getAccommodation($accommodationId);
+$accommodation = getAccommodationById($accommodationId);
 if (!$accommodation) {
     header("Location: " . BASE_URL . "pages/search.php");
 }

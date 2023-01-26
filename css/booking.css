@@ -1,8 +1,12 @@
 main {
   margin: 5vh auto;
   width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Booking page*/
 .container {
   height: 80vh;
   width: 100%;
@@ -33,7 +37,6 @@ section.accommodation-info {
 .accommodation-info h2 {
   font-size: 2em;
   font-weight: 500;
-  /* margin-top: 0; */
 }
 
 .accommodation-info h3 {
@@ -151,7 +154,7 @@ button {
   min-width: 100px;
   border-radius: 24px;
   padding: 15px 40px;
-  margin-top: 20px;
+  margin-top: 60px;
 
   /* center the button */
   margin-left: auto;
@@ -193,35 +196,48 @@ input:focus {
   box-shadow: 0 2px 6px -8px rgba(182, 157, 230, 0.45);
 }
 
-/* .floating-label {
-  position: relative;
-  margin-bottom: 10px;
+/* confirmation page */
+div.confirmation-container {
+  height: 80vh;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
 }
-.floating-label label {
-  position: absolute;
-  top: calc(50% - 7px);
-  left: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
+
+.confirmation-container section.accommodation-image {
+  width: 30%;
+  height: 100%;
 }
-.floating-label input:not(:-moz-placeholder-shown) {
-  padding: 28px 0px 12px 0px;
+
+.confirmation-container section.accommodation-image img {
+  width: 100%;
+  height: inherit;
+  object-fit: cover;
 }
-.floating-label input:not(:-ms-input-placeholder) {
-  padding: 28px 0px 12px 0px;
+
+.confirmation-container section.booking-info {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.floating-label input:not(:placeholder-shown) {
-  padding: 28px 0px 12px 0px;
+
+.confirmation-container section.booking-info h2 {
+  font-size: 2em;
+  font-weight: 500;
+  color: var(--color-primary);
+  /* margin-top: 0; */
 }
-.floating-label input:not(:-moz-placeholder-shown) + label {
-  transform: translateY(-10px);
-  opacity: 0.7;
+
+.confirmation-container section.booking-info p {
+  font-size: 1.25em;
+  font-weight: 400;
+  margin-top: 0;
+  color: #000;
+  opacity: 0.8;
+  margin-top: 20px;
+  text-align: center;
 }
-.floating-label input:not(:-ms-input-placeholder) + label {
-  transform: translateY(-10px);
-  opacity: 0.7;
-}
-.floating-label input:not(:placeholder-shown) + label {
-  transform: translateY(-10px);
-  opacity: 0.7;
-} */
