@@ -1,9 +1,13 @@
 <?php
 
-require ROOT_PATH . 'libraries/PHPMailer/src/Exception.php';
-require ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
-require ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
-include ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'libraries/PHPMailer/src/Exception.php';
+require_once ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
+require_once ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
+require_once ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'includes/functions/sessions.php';
+
+startSession();
+checkIfNotLoggedIn();
 
 
 use PHPMailer\PHPMailer\PHPMailer;

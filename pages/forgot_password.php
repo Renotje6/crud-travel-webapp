@@ -1,13 +1,7 @@
 <?php
-session_start();
-
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/partials/header.php");
-include(ROOT_PATH . "/includes/controllers/forgot_password.php");
-
-if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-    header('Location: ' . BASE_URL . 'index.php');
-}
+require_once(ROOT_PATH . "/includes/partials/header.php");
+require_once(ROOT_PATH . "/includes/controllers/forgot_password.php");
 ?>
 <main>
     <div class="container">

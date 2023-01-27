@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/includes/config.php");
-require(ROOT_PATH . "/includes/controllers/homepage.php");
-include(ROOT_PATH . "/includes/partials/header.php");
+require_once(ROOT_PATH . "/includes/controllers/homepage.php");
+require_once(ROOT_PATH . "/includes/partials/header.php");
 ?>
 <main>
   <section class="search">
@@ -90,4 +90,4 @@ include(ROOT_PATH . "/includes/partials/header.php");
     </div>
   </section>
 </main>
-<?php include(ROOT_PATH . "includes/partials/footer.php"); ?>
+<?php require_once(ROOT_PATH . "includes/partials/footer.php"); ?>

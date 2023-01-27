@@ -1,7 +1,7 @@
 <?php
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/partials/header.php");
-include(ROOT_PATH . "/includes/controllers/change_password.php");
+require_once(ROOT_PATH . "/includes/partials/header.php");
+require_once(ROOT_PATH . "/includes/controllers/change_password.php");
 ?>
 
 <main>
@@ -14,12 +14,12 @@ include(ROOT_PATH . "/includes/controllers/change_password.php");
                 <p>Wachtwoord vergeten? Geen probleem! Vul hieronder je nieuwe wachtwoord in.</p>
                 <input type="hidden" value=<?php echo $_GET['token'] ?> name='token' id='token'>
                 <div class="floating-label">
-                    <input placeholder="Wachtwoord" type="password" name="password" id="password" autocomplete="off" <?php if (isset($errors['password'])) echo 'style="border-bottom: 1px red solid"' ?> required>
+                    <input placeholder="Wachtwoord" type="password" name="password" id="password" autocomplete="off" <?php if (isset($errors['password'])) echo 'style="border-bottom: 1px red solid"' ?> require_onced>
                     <label for="password">Wachtwoord:</label>
                 </div>
                 <div class="error password"><?php if (isset($errors['password'])) echo $errors['password'] ?></div>
                 <div class="floating-label">
-                    <input placeholder="Herhaal wachtwoord" type="password" name="repeat_password" id="repeat_password" autocomplete="off" <?php if (isset($errors['repeat_password'])) echo 'style="border-bottom: 1px red solid"' ?> required>
+                    <input placeholder="Herhaal wachtwoord" type="password" name="repeat_password" id="repeat_password" autocomplete="off" <?php if (isset($errors['repeat_password'])) echo 'style="border-bottom: 1px red solid"' ?> require_onced>
                     <label for="repeat_password">Herhaal wachtwoord:</label>
                 </div>
                 <div class="error repeat_password"><?php if (isset($errors['repeat_password'])) echo $errors['repeat_password'] ?></div>

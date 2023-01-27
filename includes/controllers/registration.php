@@ -1,5 +1,9 @@
 <?php
-include_once ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'includes/functions/sessions.php';
+
+startSession();
+checkIfNotLoggedIn();
 
 
 if (isset($_POST['submit'])) {

@@ -1,6 +1,14 @@
 <?php
-include_once ROOT_PATH . 'includes/functions/database.php';
-session_start();
+require_once ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'includes/functions/sessions.php';
+
+startSession();
+
+if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+    $redirect = $_SESSION['redirect'] ?? BASE_URL . 'index.php';
+    unset($_SESSION['redirect']);
+    header('Location: ' . $redirect);
+}
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];

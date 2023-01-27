@@ -1,7 +1,7 @@
 <?php
 require_once("../includes/config.php");
-include(ROOT_PATH . "includes/controllers/booking.php");
-include(ROOT_PATH . "includes/partials/header.php");
+require_once(ROOT_PATH . "includes/controllers/booking.php");
+require_once(ROOT_PATH . "includes/partials/header.php");
 ?>
 
 <main>

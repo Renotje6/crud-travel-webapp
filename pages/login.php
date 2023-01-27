@@ -1,13 +1,7 @@
 <?php
 require_once("../includes/config.php");
-include(ROOT_PATH . "/includes/controllers/login.php");
-include(ROOT_PATH . "/includes/partials/header.php");
-
-if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-    $redirect = $_SESSION['redirect'] ?? BASE_URL . 'index.php';
-    unset($_SESSION['redirect']);
-    header('Location: ' . $redirect);
-}
+require_once(ROOT_PATH . "/includes/partials/header.php");
+require_once(ROOT_PATH . "/includes/controllers/login.php");
 ?>
 <main>
     <div class="container">

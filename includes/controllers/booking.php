@@ -1,8 +1,9 @@
 <?php
-include_once ROOT_PATH . 'includes/functions/database.php';
-include_once ROOT_PATH . 'includes/functions/sessions.php';
+require_once ROOT_PATH . 'includes/functions/database.php';
+require_once ROOT_PATH . 'includes/functions/sessions.php';
 
 startSession();
+checkSession();
 
 if (!isset($_GET['accommodation'])) {
     header("Location: " . BASE_URL . "pages/search.php");

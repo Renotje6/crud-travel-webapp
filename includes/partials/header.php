@@ -1,5 +1,5 @@
 <?php
-include_once ROOT_PATH . 'includes/functions/sessions.php';
+require_once ROOT_PATH . 'includes/functions/sessions.php';
 
 startSession();
 
@@ -95,7 +95,7 @@ $scripts = [
         </ul>
         <?php
         if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-            echo "<p class='button'><a href='" . BASE_URL . "includes/functions/logout.php'>Welkom, " . $_SESSION['username'] . "</a></p>";
+            echo "<p class='button'><a href='" . BASE_URL . "includes/controllers/logout.php'>Welkom, " . $_SESSION['username'] . "</a></p>";
         } else {
             echo "<p class='button'><a href='" . BASE_URL . "pages/login.php'>Login</a></p>";
         }
