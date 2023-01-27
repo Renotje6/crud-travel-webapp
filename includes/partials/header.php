@@ -54,6 +54,7 @@ $scripts = [
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/variables.css" />
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/index.css" />
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/navigation.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/footer.css" />
 
     <?php
     if (isset($styles[basename($_SERVER['PHP_SELF'])])) {

@@ -70,3 +70,5 @@ require_once(ROOT_PATH . "/includes/partials/header.php");
         <?php endforeach; ?>
     </div>
 </main>
+
+<?php require_once(ROOT_PATH . "includes/partials/footer.php"); ?>

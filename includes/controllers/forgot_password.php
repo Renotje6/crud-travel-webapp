@@ -20,11 +20,7 @@ if (isset($_POST['submit']) && isset($_POST['email'])) {
         $error = 'Vul een e-mailadres in';
         return;
     } else {
-        $sql = "SELECT * FROM USERS WHERE email = :email";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = getUserByEmail($email);
 
         if ($user) {
             $token =  getExistingToken($user['id']);

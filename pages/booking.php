@@ -48,3 +48,5 @@ require_once(ROOT_PATH . "includes/partials/header.php");
         </div>
     <?php endif; ?>
 </main>
+
+<?php require_once(ROOT_PATH . "includes/partials/footer.php"); ?>
