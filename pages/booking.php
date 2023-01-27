@@ -1,27 +1,7 @@
 <?php
 require_once("../includes/config.php");
-include(ROOT_PATH . "includes/partials/header.php");
-include(ROOT_PATH . "includes/functions/get_accommodation.php");
 include(ROOT_PATH . "includes/controllers/booking.php");
-
-if (!isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] != true) {
-    $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
-    header('Location: ' . BASE_URL . 'pages/login.php');
-}
-
-
-if (!isset($_GET['accommodation'])) {
-    header("Location: " . BASE_URL . "pages/search.php");
-} else {
-    $accommodationId = $_GET['accommodation'];
-}
-
-$accommodation = getAccommodationById($accommodationId);
-
-if (!$accommodation) {
-    header("Location: " . BASE_URL . "pages/search.php");
-}
-
+include(ROOT_PATH . "includes/partials/header.php");
 ?>
 
 <main>

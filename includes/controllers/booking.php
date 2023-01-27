@@ -1,5 +1,20 @@
 <?php
-include ROOT_PATH . 'includes/connection.php';
+include_once ROOT_PATH . 'includes/functions/database.php';
+include_once ROOT_PATH . 'includes/functions/sessions.php';
+
+startSession();
+
+if (!isset($_GET['accommodation'])) {
+    header("Location: " . BASE_URL . "pages/search.php");
+} else {
+    $accommodationId = $_GET['accommodation'];
+}
+
+$accommodation = getAccommodationById($accommodationId);
+
+if (!$accommodation) {
+    header("Location: " . BASE_URL . "pages/search.php");
+}
 
 if (isset($_POST['submit'])) {
     $errors = array();

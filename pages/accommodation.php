@@ -1,18 +1,7 @@
 <?php
 require_once("../includes/config.php");
+require_once(ROOT_PATH . "/includes/controllers/accommodation.php");
 include(ROOT_PATH . "/includes/partials/header.php");
-require_once(ROOT_PATH . "/includes/functions/get_accommodation.php");
-
-if (!isset($_GET['accommodation'])) {
-    header("Location: " . BASE_URL . "pages/search.php");
-} else {
-    $accommodationId = $_GET['accommodation'];
-}
-
-$accommodation = getAccommodationById($accommodationId);
-if (!$accommodation) {
-    header("Location: " . BASE_URL . "pages/search.php");
-}
 ?>
 
 <main>

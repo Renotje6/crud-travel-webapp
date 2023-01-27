@@ -5,6 +5,7 @@ require ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
 require ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
 include ROOT_PATH . 'includes/functions/database.php';
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

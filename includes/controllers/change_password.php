@@ -1,5 +1,13 @@
 <?php
 include ROOT_PATH . 'includes/functions/database.php';
+include ROOT_PATH . 'includes/functions/sessions.php';
+
+startSession();
+checkSession();
+
+if (!isset($success) && (!isset($_GET['token']) || !checkIfTokenIsValid($_GET['token']))) {
+    header('Location: ' . BASE_URL . 'index.php');
+}
 
 if (isset($_POST['submit'])) {
     $password = $_POST['password'];

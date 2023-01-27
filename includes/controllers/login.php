@@ -1,6 +1,6 @@
 <?php
 include_once ROOT_PATH . 'includes/functions/database.php';
-
+session_start();
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];

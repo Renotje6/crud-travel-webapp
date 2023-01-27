@@ -1,9 +1,7 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
+include_once ROOT_PATH . 'includes/functions/sessions.php';
 
-// require_once("../config.php");
+startSession();
 
 $styles = [
     "index.php" => [
@@ -43,7 +41,7 @@ $scripts = [
     "booking.php" => [
         "booking.js",
     ],
-]
+];
 ?>
 
 <!DOCTYPE html>
