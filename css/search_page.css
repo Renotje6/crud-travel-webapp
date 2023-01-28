@@ -1,0 +1,92 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+}
+
+.result-card {
+  display: flex;
+  width: 75%;
+  height: auto;
+  background-color: var(--color-secondary);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.result-card img {
+  margin: 1vh 1vw;
+  object-fit: cover;
+  width: auto;
+  height: 200px;
+}
+
+.result-card .result-card-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.result-card .result-card-info .card-title h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.result-card .result-card-info .card-title p {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.result-card .result-card-info .card-title {
+  padding: 1vh 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-card .result-card-info .card-title .rating {
+  font-size: 4rem;
+  color: rgb(255, 217, 0);
+}
+
+.result-card .result-card-info .card-title .rating .filled {
+  font-variation-settings: "FILL" 1;
+}
+
+.result-card .result-card-info .card-title {
+  flex-grow: 1;
+}
+
+.result-card .result-card-info .card-description {
+  background-color: var(--color-secondary-dark);
+  display: flex;
+  padding: 1vh 1vw;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-card .result-card-info .card-description h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.result-card .result-card-info .card-description .price p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-align: right;
+}
+
+.result-card .result-card-info .card-description button {
+  margin-top: 1vh;
+  background-color: var(--color-primary);
+  float: right;
+  color: var(--color-secondary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.result-card .result-card-info .card-description button:hover {
+  background-color: var(--color-primary-dark);
+}
