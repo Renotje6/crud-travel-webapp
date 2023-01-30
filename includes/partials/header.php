@@ -94,12 +94,25 @@ $scripts = [
             <li class="nav-item"><a href="#">Contact</a></li>
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
-        <?php
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-            echo "<p class='button'><a href='" . BASE_URL . "includes/controllers/logout.php'>Welkom, " . $_SESSION['username'] . "</a></p>";
-        } else {
-            echo "<p class='button'><a href='" . BASE_URL . "pages/login.php'>Login</a></p>";
-        }
+        <!-- Create a clickable dropdown menu -->
+        <div class="dropdown">
+            <input type="checkbox" name="dropdown-button" />
+            <label for="dropdown-button"><i class="material-icons-outlined">account_circle</i></label>
+            <div class="dropdown-content">
+                <a href="<?php echo BASE_URL ?>pages/login.php">Login</a>
+                <a href="<?php echo BASE_URL ?>pages/registration.php">Registreren</a>
+            </div>
 
-        ?>
+
+
+
+            <?php
+            //if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) :
+            ?>
+
+            <?php //else : 
+            ?>
+            <!-- <p class='button'><a href='" . BASE_URL . "pages/login.php'>Login</a></p> -->
+            <?php //endif; 
+            ?>
     </nav>
