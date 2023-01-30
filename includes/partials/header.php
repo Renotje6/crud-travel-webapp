@@ -31,6 +31,9 @@ $styles = [
     "booking.php" => [
         "booking.css",
     ],
+    "profile.php" => [
+        "profile.css",
+    ],
 ];
 
 $scripts = [
@@ -75,6 +78,7 @@ $scripts = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <script src="<?php echo BASE_URL; ?>js/toggle_nav_menu.js" defer></script>
 
@@ -94,25 +98,56 @@ $scripts = [
             <li class="nav-item"><a href="#">Contact</a></li>
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
-        <!-- Create a clickable dropdown menu -->
-        <div class="dropdown">
-            <input type="checkbox" name="dropdown-button" />
-            <label for="dropdown-button"><i class="material-icons-outlined">account_circle</i></label>
-            <div class="dropdown-content">
-                <a href="<?php echo BASE_URL ?>pages/login.php">Login</a>
-                <a href="<?php echo BASE_URL ?>pages/registration.php">Registreren</a>
+
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <button class="dropdown-button">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo BASE_URL ?>pages/login.php">Login</a></li>
+                    <li><a href="<?php echo BASE_URL ?>pages/registration.php">Registreren</a></li>
+                </ul>
             </div>
+        </div>
 
 
-
-
-            <?php
-            //if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) :
-            ?>
-
-            <?php //else : 
-            ?>
-            <!-- <p class='button'><a href='" . BASE_URL . "pages/login.php'>Login</a></p> -->
-            <?php //endif; 
-            ?>
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) :
+        ?>
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo BASE_URL ?>pages/profile.php">Profiel</a></li>
+                        <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == "ADMIN") {
+                            echo "<li><a href='" . BASE_URL . "pages/admin.php'>Dashboard</a></li>";
+                        } ?>
+                        <li><a href="<?php echo BASE_URL ?>includes/controllers/logout.php">Uitloggen</a></li>
+                    </ul>
+                </div>
+            </div>
+        <?php else : ?>
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <a href="<?php echo BASE_URL ?>pages/login.php">
+                        <button class="dropdown-button">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        <?php endif; ?>
     </nav>
+
+    <script>
+        const listItems = document.querySelectorAll('.dropdown-menu li');
+
+        listItems.forEach(item => {
+            item.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+            })
+        })
+    </script>

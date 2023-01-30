@@ -393,3 +393,33 @@ function searchAccommodations($parameters)
     $results = $queryExec->fetchAll();
     return $results;
 }
+
+//////////////////////////////////////////////////////////////////
+//////////////////////  BOOKINGS  FUNCTIONS  /////////////////////
+//////////////////////////////////////////////////////////////////
+
+/*
+    * Function that gets the bookings by user id
+    * @param $userId
+    * @return $results
+*/
+function getBookingsByUserId($userId)
+{
+    global $conn;
+    $query = "SELECT BOOKINGS.id, BOOKINGS.check_in, BOOKINGS.check_out, BOOKINGS.total_price, BOOKINGS.status, BOOKINGS.adults, BOOKINGS.children,
+                     ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, IMAGES.URL as image
+                FROM BOOKINGS
+                INNER JOIN ACCOMMODATIONS
+                ON BOOKINGS.accommodation_id = ACCOMMODATIONS.id
+                INNER JOIN IMAGES
+                ON BOOKINGS.accommodation_id = IMAGES.accommodation_id
+                WHERE BOOKINGS.user_id = :userId AND IMAGES.isThumbnail = 1
+                GROUP BY BOOKINGS.id, IMAGES.URL";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":userId", $userId);
+    $queryExec->execute();
+    $results = $queryExec->fetchAll();
+
+    return $results;
+}

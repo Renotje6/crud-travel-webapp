@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
         $checkIn = $_POST['check-in'];
         $checkOut = $_POST['check-out'];
         $totalPrice = $_POST['total-price'];
-        $userId = $_SESSION['user'];
+        $userId = $_SESSION['user']['id'];
         $accommodationId = $_POST['accommodation-id'];
 
         // Remove all non numeric characters from the total price

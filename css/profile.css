@@ -1,0 +1,82 @@
+main {
+  width: 90vw;
+  margin-top: 5vh;
+}
+
+.profile-container {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+}
+
+.account-info,
+.bookings {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.account-info h2,
+.bookings h2 {
+  margin-bottom: 60px;
+}
+
+.account-info form {
+  display: inline-block;
+  text-align: left;
+}
+
+.account-info label {
+  display: block;
+  margin: 10px 0;
+}
+
+.account-info input[type="text"],
+.account-info input[type="email"],
+.account-info input[type="tel"] {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.bookings table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bookings th,
+.bookings td {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-width: 100px;
+}
+
+.bookings th {
+  background-color: #ddd;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin: 5px 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
+}
