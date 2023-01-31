@@ -36,11 +36,10 @@ require_once(ROOT_PATH . "/includes/controllers/profile.php");
                         <td><?php echo $booking['check_out'] ?></td>
                         <td><?php echo $booking['adults'] ?></td>
                         <td><?php echo $booking['children'] ?></td>
-                        <td><?php echo $booking['status'] ?></td>
                         <td>€ <?php echo $booking['total_price'] ?></td>
+                        <td><?php echo $booking['status'] ?></td>
                         <td>
-                            <button class="edit-btn">Bewerk</button>
-                            <button class="delete-btn">Annuleer</button>
+                            <a href="<?php echo BASE_URL ?>includes/controllers/cancel_booking.php?booking=<?php echo $booking['id'] ?>"><button class="delete-btn">Annuleer</button></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

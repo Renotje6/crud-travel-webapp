@@ -1,58 +1,35 @@
 main {
   width: 90vw;
-  margin-top: 5vh;
-}
-
-.profile-container {
   margin: 0 auto;
-  text-align: center;
-  display: flex;
 }
 
-.account-info,
 .bookings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin: 20px 0;
+  margin: 5vh 0;
 }
 
-.account-info h2,
 .bookings h2 {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
-.account-info form {
-  display: inline-block;
-  text-align: left;
-}
-
-.account-info label {
-  display: block;
-  margin: 10px 0;
-}
-
-.account-info input[type="text"],
-.account-info input[type="email"],
-.account-info input[type="tel"] {
-  width: 300px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.bookings table {
+table {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
 }
 
-.bookings th,
-.bookings td {
+th,
+td {
   border: 1px solid #ccc;
   padding: 5px;
   min-width: 100px;
 }
 
-.bookings th {
+th {
   background-color: #ddd;
 }
 

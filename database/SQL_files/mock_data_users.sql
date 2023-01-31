@@ -28,3 +28,4 @@ insert into USERS (username, email, password, isAdmin) values ('tbrehaultq', 'ek
 insert into USERS (username, email, password, isAdmin) values ('fsherborner', 'tmcbainr@cnn.com', 'w3dUklRJKZ', false);
 insert into USERS (username, email, password, isAdmin) values ('ogyless', 'ogawlers@msn.com', 'rMisl2fpLB3d', false);
 insert into USERS (username, email, password, isAdmin) values ('smcbrydet', 'crorket@imageshack.us', 'brjKx80GUC0', false);
+insert into USERS (username, email, password, isAdmin) values ('renotje6', 'reno.rovers@gmail.com', '$2y$10$dUDNe2WqBc.NtlxUnjAnoedTMVnPMMboxXNS9MzwBs4Mra2FlAEZW', true);

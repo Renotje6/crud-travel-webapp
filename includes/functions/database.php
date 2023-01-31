@@ -423,3 +423,57 @@ function getBookingsByUserId($userId)
 
     return $results;
 }
+
+/*
+    * Function that cancels a booking by id
+    * @param $bookingId
+*/
+function cancelBookingById($bookingId)
+{
+    global $conn;
+    $query = "UPDATE BOOKINGS SET status = 'CANCELLED' WHERE id = :bookingId";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":bookingId", $bookingId);
+    $queryExec->execute();
+}
+
+/*
+    * Function that deletes a booking by id
+    * @param $bookingId
+*/
+function deleteBookingById($bookingId)
+{
+    global $conn;
+    $query = "DELETE FROM BOOKINGS WHERE id = :bookingId";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":bookingId", $bookingId);
+    $queryExec->execute();
+}
+
+/*
+    * Function that gets all bookings
+    * @return $results
+*/
+function getAllBookings()
+{
+    global $conn;
+    $query = "SELECT BOOKINGS.id, BOOKINGS.check_in, BOOKINGS.check_out, BOOKINGS.total_price, BOOKINGS.status, BOOKINGS.adults, BOOKINGS.children,
+                     ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, IMAGES.URL as image, USERS.username
+                FROM BOOKINGS
+                INNER JOIN ACCOMMODATIONS
+                ON BOOKINGS.accommodation_id = ACCOMMODATIONS.id
+                INNER JOIN IMAGES
+                ON BOOKINGS.accommodation_id = IMAGES.accommodation_id
+                INNER JOIN USERS
+                ON BOOKINGS.user_id = USERS.id
+                WHERE IMAGES.isThumbnail = 1
+                GROUP BY BOOKINGS.id, IMAGES.URL";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->execute();
+    $results = $queryExec->fetchAll();
+
+    return $results;
+}

@@ -57,3 +57,16 @@ function destroySession()
     // Destroy the session.
     session_destroy();
 }
+
+/*
+    * This function checks if the user is logged in and an admin and redirects to the admin page if so.
+*/
+function checkIfAdmin()
+{
+    // Check if the user is an admin.
+    if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'ADMIN') {
+        return true;
+    } else {
+        return false;
+    }
+}

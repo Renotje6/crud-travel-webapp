@@ -34,6 +34,9 @@ $styles = [
     "profile.php" => [
         "profile.css",
     ],
+    "admin.php" => [
+        "admin.css",
+    ],
 ];
 
 $scripts = [
@@ -99,19 +102,6 @@ $scripts = [
             <li class="nav-item"><a href="#">Over Ons</a></li>
         </ul>
 
-        <div class="dropdown-container">
-            <div class="dropdown">
-                <button class="dropdown-button">
-                    <span class="material-symbols-outlined">account_circle</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="<?php echo BASE_URL ?>pages/login.php">Login</a></li>
-                    <li><a href="<?php echo BASE_URL ?>pages/registration.php">Registreren</a></li>
-                </ul>
-            </div>
-        </div>
-
-
         <?php
         if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) :
         ?>
@@ -122,7 +112,7 @@ $scripts = [
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo BASE_URL ?>pages/profile.php">Profiel</a></li>
-                        <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == "ADMIN") {
+                        <?php if (checkIfAdmin()) {
                             echo "<li><a href='" . BASE_URL . "pages/admin.php'>Dashboard</a></li>";
                         } ?>
                         <li><a href="<?php echo BASE_URL ?>includes/controllers/logout.php">Uitloggen</a></li>

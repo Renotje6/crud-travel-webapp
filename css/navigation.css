@@ -153,14 +153,17 @@ nav .toggle {
   position: absolute;
   top: 0;
   right: 0;
+  height: inherit;
 }
 
 .dropdown {
+  height: inherit;
   position: relative;
   display: inline-block;
 }
 
 .dropdown-button {
+  height: 100%;
   padding: 16px;
   border: none;
   cursor: pointer;
