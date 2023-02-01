@@ -1,17 +1,11 @@
 <?php
 
-require_once ROOT_PATH . 'libraries/PHPMailer/src/Exception.php';
-require_once ROOT_PATH . 'libraries/PHPMailer/src/PHPMailer.php';
-require_once ROOT_PATH . 'libraries/PHPMailer/src/SMTP.php';
 require_once ROOT_PATH . 'includes/functions/database.php';
 require_once ROOT_PATH . 'includes/functions/sessions.php';
+require_once ROOT_PATH . 'includes/functions/mail.php';
 
 startSession();
 checkIfNotLoggedIn();
-
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['submit']) && isset($_POST['email'])) {
     $email = $_POST['email'];
@@ -41,27 +35,7 @@ if (isset($_POST['submit']) && isset($_POST['email'])) {
                 <p>Als u geen verzoek heeft gedaan om uw wachtwoord te resetten, kunt u deze e-mail negeren.</p>
             ";
 
-            $mail = new PHPMailer;
-            $mail->isSMTP();
-            $mail->Host = 'smtp-mail.outlook.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = '1204544@student.roc-nijmegen.nl';
-            $mail->Password = 'zTm3w8-B';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('1204544@student.roc-nijmegen.nl', 'InnerSunn');
-            $mail->addAddress($to);
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body = $message;
-            $mail->AltBody = strip_tags($message);
-
-            if ($mail->send()) {
-                $success =  'Er is een e-mail verstuurd naar ' . $to . ' met instructies om uw wachtwoord te resetten.';
-            } else {
-                $error = 'Er is iets fout gegaan. Probeer het later opnieuw.';
-            }
+            sendMail($to, $subject, $message);
         } else {
             $error = 'Geen account gevonden met dit e-mailadres';
         }

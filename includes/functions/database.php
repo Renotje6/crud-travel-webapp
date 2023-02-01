@@ -6,6 +6,21 @@ require_once ROOT_PATH . 'includes/connection.php';
 ////////////////////  USER FUNCTIONS  ////////////////////////////
 //////////////////////////////////////////////////////////////////
 
+/*
+    * Function that gets all users from the database
+    * @return $users
+*/
+function getAllUsers()
+{
+    global $conn;
+    $query = "SELECT * FROM USERS ORDER BY id ASC";
+    $queryExec = $conn->prepare($query);
+    $queryExec->execute();
+    $users = $queryExec->fetchAll(PDO::FETCH_ASSOC);
+
+    return $users;
+}
+
 /* 
     * Function that gets the user by id
     * @param $userId
@@ -92,6 +107,19 @@ function updatePassword($user_id, $password)
     $stmt->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
+}
+
+/*
+    * Function that deletes a user from the database
+    * @param $userId
+*/
+function deleteUser($userId)
+{
+    global $conn;
+    $query = "DELETE FROM USERS WHERE ID = :userId";
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":userId", $userId);
+    $queryExec->execute();
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -217,6 +245,21 @@ function updateToken($user_id)
 //////////////////////////////////////////////////////////////////
 
 /* 
+    * Function that gets all the accommodations
+    * @return $result
+*/
+function getAllAccommodations()
+{
+    global $conn;
+    $query = "SELECT * FROM accommodations";
+    $queryExec = $conn->prepare($query);
+    $queryExec->execute();
+    $results = $queryExec->fetchAll();
+
+    return $results;
+}
+
+/* 
     * Function that gets the accommodation by id
     * @param $accommodationId
     * @return $result
@@ -238,6 +281,44 @@ function getAccommodationById($accommodationId)
     }
 
     return $result;
+}
+
+/*
+    * Function that inserts a new accommodation
+    * @param $accommodation
+    * @return $accommodationId
+*/
+function addAccommodation($name, $country, $city, $address, $description, $price, $images)
+{
+    global $conn;
+    $query = "INSERT INTO accommodations (name, country, city, address, description, price) VALUES (:name, :country, :city, :address, :description, :price)";
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":name", $name);
+    $queryExec->bindParam(":country", $country);
+    $queryExec->bindParam(":city", $city);
+    $queryExec->bindParam(":address", $address);
+    $queryExec->bindParam(":description", $description);
+    $queryExec->bindParam(":price", $price);
+    $queryExec->execute();
+    $accommodationId = $conn->lastInsertId();
+
+    // save images
+    saveImages($images, $accommodationId);
+
+    return $accommodationId;
+}
+
+/*
+    * Function that deletes an accommodation by id
+    * @param $accommodationId
+*/
+function deleteAccommodationById($accommodationId)
+{
+    global $conn;
+    $query = "DELETE FROM accommodations WHERE ID = :accommodationId";
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":accommodationId", $accommodationId);
+    $queryExec->execute();
 }
 
 /* 
@@ -349,12 +430,6 @@ function searchAccommodations($parameters)
         }
         $searchConstraints .= " departure = :date";
     }
-    if (!empty($parameters['airport'])) {
-        if (!empty($searchConstraints)) {
-            $searchConstraints .= " AND";
-        }
-        $searchConstraints .= " airport LIKE :airport";
-    }
 
     $query = "SELECT ACCOMMODATIONS.id, ACCOMMODATIONS.name, ACCOMMODATIONS.country, ACCOMMODATIONS.city, ACCOMMODATIONS.address, 
                      ACCOMMODATIONS.price, ROUND(AVG(REVIEWS.rating)) AS rating, IMAGES.URL as image
@@ -399,6 +474,23 @@ function searchAccommodations($parameters)
 //////////////////////////////////////////////////////////////////
 
 /*
+    * Function that gets the booking by id
+    * @param $bookingId
+    * @return $results
+*/
+function getBookingById($bookingId)
+{
+    global $conn;
+    $query = "SELECT * FROM BOOKINGS WHERE id = :bookingId";
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":bookingId", $bookingId);
+    $queryExec->execute();
+    $results = $queryExec->fetch();
+
+    return $results;
+}
+
+/*
     * Function that gets the bookings by user id
     * @param $userId
     * @return $results
@@ -414,7 +506,8 @@ function getBookingsByUserId($userId)
                 INNER JOIN IMAGES
                 ON BOOKINGS.accommodation_id = IMAGES.accommodation_id
                 WHERE BOOKINGS.user_id = :userId AND IMAGES.isThumbnail = 1
-                GROUP BY BOOKINGS.id, IMAGES.URL";
+                GROUP BY BOOKINGS.id, IMAGES.URL
+                ORDER BY BOOKINGS.id DESC";
 
     $queryExec = $conn->prepare($query);
     $queryExec->bindParam(":userId", $userId);
@@ -469,11 +562,56 @@ function getAllBookings()
                 INNER JOIN USERS
                 ON BOOKINGS.user_id = USERS.id
                 WHERE IMAGES.isThumbnail = 1
-                GROUP BY BOOKINGS.id, IMAGES.URL";
+                GROUP BY BOOKINGS.id, IMAGES.URL
+                ORDER BY BOOKINGS.id ASC";
 
     $queryExec = $conn->prepare($query);
     $queryExec->execute();
     $results = $queryExec->fetchAll();
 
     return $results;
+}
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////  IMAGES  FUNCTIONS  //////////////////////
+//////////////////////////////////////////////////////////////////
+
+/*
+    * Function that saves images to the database and uploads them to the server
+    * @param $accommodationId
+    * @param $images
+*/
+function saveImages($images, $accommodationId)
+{
+    global $conn;
+    $query = "INSERT INTO IMAGES (accommodation_id, URL, isThumbnail) VALUES (:accommodationId, :URL, :isThumbnail)";
+
+    $queryExec = $conn->prepare($query);
+    $queryExec->bindParam(":accommodationId", $accommodationId);
+
+    if (mkdir(ROOT_PATH . "resources/images/accommodations/" . $accommodationId, 0777, true)) {
+        $target_dir = ROOT_PATH . "resources/images/accommodations/" . $accommodationId . "/";
+    }
+
+    for ($i = 0; $i < count($images['name']); $i++) {
+        if ($i == 0) {
+            $isThumbnail = 1;
+        } else {
+            $isThumbnail = 0;
+        }
+
+
+        // Get image file type
+        $imageFileType = strtolower(pathinfo($images["name"][$i], PATHINFO_EXTENSION));
+
+        // move image to folder
+        $target_file = $accommodationId . "/picture" . [$i] . $imageFileType;
+        move_uploaded_file($images["tmp_name"][$i], $target_dir . $target_file);
+
+        // save image to database
+        $queryExec->bindParam(":URL", $target_file);
+        $queryExec->bindParam(":isThumbnail", $isThumbnail);
+        $queryExec->execute();
+    }
 }

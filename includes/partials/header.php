@@ -47,6 +47,9 @@ $scripts = [
     "booking.php" => [
         "booking.js",
     ],
+    "admin.php" => [
+        "toggle_modal.js",
+    ],
 ];
 ?>
 
@@ -84,6 +87,7 @@ $scripts = [
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <script src="<?php echo BASE_URL; ?>js/toggle_nav_menu.js" defer></script>
+    <script src="<?php echo BASE_URL; ?>js/toggle_profile_button.js" defer></script>
 
     <title>Document</title>
 </head>
@@ -131,13 +135,3 @@ $scripts = [
             </div>
         <?php endif; ?>
     </nav>
-
-    <script>
-        const listItems = document.querySelectorAll('.dropdown-menu li');
-
-        listItems.forEach(item => {
-            item.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-            })
-        })
-    </script>

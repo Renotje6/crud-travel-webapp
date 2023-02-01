@@ -1,6 +1,7 @@
 <?php
 require_once ROOT_PATH . 'includes/functions/database.php';
 require_once ROOT_PATH . 'includes/functions/sessions.php';
+require_once ROOT_PATH . 'includes/functions/mail.php';
 
 startSession();
 checkSession();
@@ -74,7 +75,42 @@ if (isset($_POST['submit'])) {
             $stmt->bindParam(':check_out', $checkOut);
             $stmt->bindParam(':total_price', $totalPrice);
             $stmt->execute();
+
+            $booking_id = $conn->lastInsertId();
             $success = true;
+
+
+            $accommodation = getAccommodationById($accommodationId);
+
+            // Send email to user
+            $to = $_SESSION['user']['email'];
+            $subject = "Bevestiging boeking";
+
+            $message = "<h1>Bevestiging boeking</h1>";
+            $message .= "<p>Beste " . $_SESSION['user']['username'] . ",</p>";
+            $message .= "<p>Bedankt voor uw boeking bij InnerSunn.</p>";
+            $message .= "<p>Uw gegevens:</p>";
+            $message .= "<ul>";
+            $message .= "<li>Email: " . $_SESSION['user']['email'] . "</li>";
+            $message .= "<li>Accommodatie: " . $accommodation['name'] . "</li>";
+            $message .= "<li>Reserveringsnummer: " . $booking_id . "</li>";
+            $message .= "<li>Aantal volwassenen: " . $adults . "</li>";
+            $message .= "<li>Aantal kinderen: " . $children . "</li>";
+            $message .= "<li>Check-in datum: " . $checkIn . "</li>";
+            $message .= "<li>Check-out datum: " . $checkOut . "</li>";
+            $message .= "<li>Totaalprijs: &euro;" . $totalPrice . "</li>";
+            $message .= "</ul>";
+            $message .= "<p>Wij hopen dat u een fijne vakantie heeft!</p>";
+            $message .= "<p>Met vriendelijke groet,</p>";
+            $message .= "<p>InnerSunn</p>";
+
+
+
+            if (sendMail($to, $subject, $message)) {
+                $success = true;
+            } else {
+                $errors = array_merge($errors, ["general" => "Er is iets fout gegaan."]);
+            }
         } else {
             $errors = array_merge($errors, ["general" => "Er is iets fout gegaan."]);
         }

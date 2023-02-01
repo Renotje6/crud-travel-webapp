@@ -28,8 +28,9 @@ if (isset($_POST['submit'])) {
 
                 $_SESSION['user']['id'] = $user['id'];
                 $_SESSION['user']['username'] = $user['username'];
+                $_SESSION['user']['email'] = $user['email'];
 
-                if ($user['isAdmin'] == 1) {
+                if ($user['is_admin'] == 1) {
                     $_SESSION['user']['role'] = 'ADMIN';
                 }
 
