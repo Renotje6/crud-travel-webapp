@@ -25,8 +25,15 @@ if (isset($_POST['submit'])) {
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $_SESSION['loggedIn'] = true;
-                $_SESSION['user'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
+
+                $_SESSION['user']['id'] = $user['id'];
+                $_SESSION['user']['username'] = $user['username'];
+                $_SESSION['user']['email'] = $user['email'];
+
+                if ($user['is_admin'] == 1) {
+                    $_SESSION['user']['role'] = 'ADMIN';
+                }
+
                 $_SESSION['last_ping'] = time();
 
                 header('Location: ' . $redirect);

@@ -21,10 +21,10 @@
         <div class="contact">
             <h3>Contact</h3>
             <ul>
-                <li><a href="#">Email</a></li>
-                <li><a href="#">Telefoon</a></li>
-                <li><a href="#">Adres</a></li>
                 <li><a href="#">InnerSunn</a></li>
+                <li><a href="#">Reno.rovers@gmail.com</a></li>
+                <li><a href="#">024-123456789</a></li>
+                <li><a href="#">Heyendaalseweg 98, Nijmegen</a></li>
             </ul>
         </div>
     </div>

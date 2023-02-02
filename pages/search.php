@@ -9,7 +9,6 @@ require_once(ROOT_PATH . "/includes/partials/header.php");
         <div class="search-bar">
             <form action="<?php echo BASE_URL ?>pages/search.php" method="GET">
                 <input type="text" placeholder="Bestemming" id="destination" name="destination" />
-                <input type="text" placeholder="Luchthaven" id="airport" name="airport" />
                 <input type="submit" value="Zoeken" id="search" name="submit" />
             </form>
         </div>

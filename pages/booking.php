@@ -6,7 +6,7 @@ require_once(ROOT_PATH . "includes/partials/header.php");
 
 <main>
     <?php if (!isset($success) || empty($success) || $success == false) : ?>
-        <div class="container">
+        <div class="booking-container">
             <section class="accommodation-image">
                 <img src="<?php echo BASE_URL . "resources/images/accommodations/" . $accommodation['images'][0] ?>" alt=" Chlamydosaurus kingii">
             </section>

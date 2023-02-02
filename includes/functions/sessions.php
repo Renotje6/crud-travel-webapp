@@ -5,7 +5,9 @@
 */
 function startSession()
 {
+    // Check if a session is started.
     if (session_status() == PHP_SESSION_NONE) {
+        // Start a session.
         session_start();
     }
 }
@@ -19,8 +21,14 @@ function checkSession()
     if (!isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] != true && $_SESSION['last_ping'] < time() - 600) {
         // If the user is not logged in, the current page is saved in the session.
         $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
+
+        // Destroy the session.
+        destroySession();
+
+        // Redirect to the login page.
         header('Location: ' . BASE_URL . 'pages/login.php');
     } else {
+        // Update the last_ping time.
         $_SESSION['last_ping'] = time();
     }
 }
@@ -30,7 +38,9 @@ function checkSession()
 */
 function checkIfNotLoggedIn()
 {
+    // Check if the user is logged in.
     if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
+        // Redirect to the index page.
         header('Location: ' . BASE_URL . 'index.php');
     }
 }
@@ -40,7 +50,23 @@ function checkIfNotLoggedIn()
 */
 function destroySession()
 {
+    // Start a session.
     startSession();
+    // Set the session variables to an empty array.
     $_SESSION = array();
+    // Destroy the session.
     session_destroy();
+}
+
+/*
+    * This function checks if the user is logged in and an admin and redirects to the admin page if so.
+*/
+function checkIfAdmin()
+{
+    // Check if the user is an admin.
+    if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'ADMIN') {
+        return true;
+    } else {
+        return false;
+    }
 }

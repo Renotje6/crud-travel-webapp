@@ -148,3 +148,65 @@ nav .toggle {
     opacity: 1;
   }
 }
+
+.dropdown-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: inherit;
+}
+
+.dropdown {
+  height: inherit;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  height: 100%;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+  background-color: var(--color-primary);
+}
+
+.dropdown-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.dropdown-button span {
+  color: var(--color-secondary);
+  font-size: 1.9rem;
+  text-decoration: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  z-index: 1;
+  background-color: var(--color-secondary);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+  right: 0;
+}
+
+.dropdown-menu > li:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:active .dropdown-menu {
+  display: none;
+}
+
+.dropdown-button:focus + .dropdown-menu {
+  display: block;
+}
